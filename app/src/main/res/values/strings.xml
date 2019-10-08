@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Calculator_wars</string>
+    <string name="server_mode">Strežnik</string>
+    <string name="client_mode">Odjemalec</string>
 </resources>
