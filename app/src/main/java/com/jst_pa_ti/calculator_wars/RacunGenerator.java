@@ -7,7 +7,8 @@ public class RacunGenerator {
     private int difficulty;
     private int seed;
     private Random random;
-    private int rezultat;
+    private int rezultat, type;
+    private boolean karkoli = true;
 
     public RacunGenerator(int seed) {
 
@@ -19,6 +20,25 @@ public class RacunGenerator {
 
     public String getRacun() {
 
+        setRacunType();
+
+        switch (type) {
+
+            case 0:
+                return getRacun0();
+            case 1:
+                return getRacun1();
+            case 2:
+                return getRacun2();
+
+        }
+
+        return null;
+
+    }
+
+    private String getRacun0() {
+
         int a = getNumber(false);
         int b = getNumber(false);
         String s = getMathSymbol();
@@ -26,8 +46,61 @@ public class RacunGenerator {
             b = getNumber(true);
 
         setRezultat(a, b, s);
+        System.out.println(rezultat);
 
-        return a + s + b + " = " + rezultat;
+        return a + " " + s + " " + b + " = ?";
+
+    }
+
+    private String getRacun1() {
+
+        int a = getNumber(false);
+        int b = getNumber(false);
+        String s = getMathSymbol();
+
+        while (s.equals("/") && (b == 0 || a % b != 0)) {
+
+            b = getNumber(true);
+
+        }
+
+        if (a == 0 && (s.equals("*") || s.equals("/")))
+            karkoli = true;
+        else
+            karkoli = false;
+
+        setRezultat(a, b, s);
+        int r = rezultat;
+        rezultat = b;
+        System.out.println(rezultat + " " + karkoli);
+
+        return a + " " + s + " ? = " + r;
+
+    }
+
+    private String getRacun2() {
+
+        int a = getNumber(false);
+        int b = getNumber(false);
+        String s = getMathSymbol();
+
+        while (s.equals("/") && (b == 0 || a % b != 0)) {
+
+            b = getNumber(true);
+
+        }
+
+        if (b == 0 && (s.equals("*") || s.equals("/")))
+            karkoli = true;
+        else
+            karkoli = false;
+
+        setRezultat(a, b, s);
+        int r = rezultat;
+        rezultat = a;
+        System.out.println(rezultat + " " + karkoli);
+
+        return "? " + s + " " + b + " = " + r;
 
     }
 
@@ -45,8 +118,6 @@ public class RacunGenerator {
                 rezultat = a * b;
                 break;
             case "/":
-                if (b == 0)
-                    b = getNumber(true);
                 rezultat = a / b;
                 break;
 
@@ -54,9 +125,9 @@ public class RacunGenerator {
 
     }
 
-    private int getRacunType() {
+    private void setRacunType() {
 
-        return random.nextInt(3);
+        type = random.nextInt(3);
 
     }
 
@@ -64,7 +135,7 @@ public class RacunGenerator {
 
         int symbol = random.nextInt(4);
 
-        switch (symbol) {
+        switch (3) {
 
             case 0:
                 return "+";
