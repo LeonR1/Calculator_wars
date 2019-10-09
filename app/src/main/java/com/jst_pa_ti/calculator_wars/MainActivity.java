@@ -21,18 +21,15 @@ public class MainActivity extends AppCompatActivity {
         Random seedGen = new Random();
         int seed = seedGen.nextInt();
 
-        TextView seedView = findViewById(R.id.textView);
-        seedView.setText("" + seed);
-
         final RacunGenerator racunGenerator = new RacunGenerator(seed);
 
-        Button button = findViewById(R.id.button4);
+        Button button = findViewById(R.id.btnGenRacun);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
-                TextView textView = findViewById(R.id.textView3);
+                TextView textView = findViewById(R.id.tvRacun);
                 textView.setText(racunGenerator.getRacun());
 
             }
