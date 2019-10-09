@@ -12,20 +12,25 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:text="Generiraj racun"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        app:layout_constraintBottom_toTopOf="@+id/stRacunov"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.585"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.696"
         tools:visibility="visible" />
 
     <TextView
         android:id="@+id/tvRacun"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:autoSizeTextType="uniform"
         android:gravity="center"
         android:text="racun"
-        android:textSize="25dp"
         app:layout_constraintBottom_toTopOf="@+id/btnGenRacun"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.561"
@@ -217,5 +222,17 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.99" />
+
+    <TextView
+        android:id="@+id/stRacunov"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="60dp"
+        android:autoSizeTextType="uniform"
+        android:gravity="center"
+        android:text="Št. Pravilnih Računov:"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static int stRacunov = 0;
     public static String rez = "";
-    public static TextView tvRacun;
+    public static TextView tvRacun, stRac;
     public static Button btns[] = new Button[12];
     public static int btnId[] = new int[10];
 
@@ -28,6 +28,10 @@ public class MainActivity extends AppCompatActivity {
         tvRacun = findViewById(R.id.tvRacun);
         final RacunGenerator racunGenerator = new RacunGenerator(seed);
         initButtons();
+
+        tvRacun.setText(racunGenerator.getGenRacun());
+        stRac = findViewById(R.id.stRacunov);
+        stRac.setText("Št. Pravilnih Računov: " + stRacunov);
 
         for (int i = 0; i < btns.length; i++) {
 
@@ -53,6 +57,23 @@ public class MainActivity extends AppCompatActivity {
                             tvRacun.setText(racunGenerator.getRacun().replace("?", rez));
                         else
                             tvRacun.setText(racunGenerator.getRacun());
+
+                    }
+                    else if (x == 11 && rez.length() > 0) {
+
+                        boolean pravilen = racunGenerator.checkRezultat(Integer.parseInt(rez));
+
+                        if (pravilen) {
+
+                            stRacunov++;
+                            stRac.setText("Št. Pravilnih Računov: " + stRacunov);
+
+                        }
+
+                        racunGenerator.setDifficulty(stRacunov);
+                        tvRacun.setText(racunGenerator.getGenRacun());
+
+                        rez = "";
 
                     }
 

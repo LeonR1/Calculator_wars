@@ -8,7 +8,7 @@ public class RacunGenerator {
     private int seed;
     private Random random;
     private int rezultat, type;
-    private boolean karkoli = true;
+    private boolean karkoli = false;
     private String racun;
 
     public RacunGenerator(int seed) {
@@ -47,6 +47,25 @@ public class RacunGenerator {
 
     }
 
+    public void setDifficulty(int stRacunov) {
+
+        if (stRacunov % 5 == 0 && stRacunov != 0)
+            difficulty++;
+
+    }
+
+    public boolean checkRezultat(int rez) {
+
+        if (rezultat < 0)
+            rezultat *= -1;
+
+        if (karkoli || rez == rezultat)
+            return true;
+
+        return false;
+
+    }
+
     private String getRacun0() {
 
         int a = getNumber(false);
@@ -58,7 +77,10 @@ public class RacunGenerator {
         setRezultat(a, b, s);
         System.out.println(rezultat);
 
-        return a + " " + s + " " + b + " = ?";
+        if (rezultat >= 0)
+            return a + " " + s + " " + b + " = ?";
+        else
+            return a + " " + s + " " + b + " = -?";
 
     }
 
@@ -162,13 +184,6 @@ public class RacunGenerator {
 
     }
 
-    private void setDifficulty(int stRacunov) {
-
-        if (stRacunov % 5 == 0 && stRacunov != 0)
-            difficulty++;
-
-    }
-
     private int getNumber(boolean dz0) {
 
         if (!dz0) {
@@ -176,15 +191,15 @@ public class RacunGenerator {
             switch (difficulty) {
 
                 case 0:
-                    return random.nextInt(10);
+                    return random.nextInt(5);
                 case 1:
-                    return random.nextInt(100);
+                    return random.nextInt(10);
                 case 2:
-                    return random.nextInt(90) + 10;
+                    return random.nextInt(15);
                 case 3:
-                    return random.nextInt(990) + 10;
+                    return random.nextInt(20);
                 default:
-                    return random.nextInt(900) + 100;
+                    return random.nextInt(25);
 
             }
 
