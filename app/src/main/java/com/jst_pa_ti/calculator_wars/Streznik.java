@@ -122,7 +122,7 @@ public class Streznik extends AppCompatActivity {
 
 
 
-    public class Naprava{
+    private class Naprava{
         private String ime,mac;
 
         public Naprava(String ime,String mac){
