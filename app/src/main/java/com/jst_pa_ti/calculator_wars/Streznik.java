@@ -9,6 +9,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -50,6 +52,13 @@ public class Streznik extends AppCompatActivity {
         IntentFilter najden = new IntentFilter(BluetoothDevice.ACTION_FOUND);
         registerReceiver(receiver, najden);
         System.out.println("doba");
+
+        seznam_naprav.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                System.out.println("ejla kej prtiskaš");
+            }
+        });
     }
 
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
