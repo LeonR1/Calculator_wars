@@ -93,6 +93,7 @@ public class RacunGenerator {
         while (s.equals("/") && (b == 0 || a % b != 0)) {
 
             b = getNumber(true);
+            System.out.println(a + " " + b);
 
         }
 
@@ -119,6 +120,7 @@ public class RacunGenerator {
         while (s.equals("/") && (b == 0 || a % b != 0)) {
 
             b = getNumber(true);
+            System.out.println(a + " " + b);
 
         }
 
@@ -160,6 +162,19 @@ public class RacunGenerator {
     private void setRacunType() {
 
         type = random.nextInt(3);
+
+    }
+
+    private boolean jePra(int a) {
+
+        for (int i = 2; i < a; i++) {
+
+            if (a % i == 0)
+                return false;
+
+        }
+
+        return true;
 
     }
 
@@ -209,15 +224,15 @@ public class RacunGenerator {
             switch (difficulty) {
 
                 case 0:
-                    return random.nextInt(9) + 1;
+                    return random.nextInt(4) + 1;
                 case 1:
-                    return random.nextInt(99) + 1;
+                    return random.nextInt(9) + 1;
                 case 2:
-                    return random.nextInt(89) + 11;
+                    return random.nextInt(14) + 1;
                 case 3:
-                    return random.nextInt(989) + 11;
+                    return random.nextInt(19) + 1;
                 default:
-                    return random.nextInt(899) + 101;
+                    return random.nextInt(24) + 1;
 
             }
 
