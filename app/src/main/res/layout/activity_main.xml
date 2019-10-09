@@ -159,8 +159,8 @@
             android:id="@+id/btn7"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text="7"
             android:autoSizeTextType="uniform"
+            android:text="7"
             app:layout_constraintBottom_toTopOf="@+id/horKeyHelper1"
             app:layout_constraintEnd_toStartOf="@+id/verKeyHelper1"
             app:layout_constraintStart_toStartOf="parent"
@@ -187,6 +187,28 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btn8"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnEqual"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:autoSizeTextType="uniform"
+            android:text="="
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn0"
+            app:layout_constraintTop_toTopOf="@+id/horKeyHelper3" />
+
+        <Button
+            android:id="@+id/btnDelete"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:autoSizeTextType="uniform"
+            android:text="DEL"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/verKeyHelper1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/horKeyHelper3" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.Guideline
