@@ -9,6 +9,7 @@ public class RacunGenerator {
     private Random random;
     private int rezultat, type;
     private boolean karkoli = true;
+    private String racun;
 
     public RacunGenerator(int seed) {
 
@@ -20,16 +21,25 @@ public class RacunGenerator {
 
     public String getRacun() {
 
+        return racun;
+
+    }
+
+    public String getGenRacun() {
+
         setRacunType();
 
         switch (type) {
 
             case 0:
-                return getRacun0();
+                racun = getRacun0();
+                return racun;
             case 1:
-                return getRacun1();
+                racun = getRacun1();
+                return racun;
             case 2:
-                return getRacun2();
+                racun = getRacun2();
+                return racun;
 
         }
 
