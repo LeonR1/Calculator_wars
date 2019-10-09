@@ -135,7 +135,7 @@ public class RacunGenerator {
 
         int symbol = random.nextInt(4);
 
-        switch (3) {
+        switch (symbol) {
 
             case 0:
                 return "+";
