@@ -95,6 +95,32 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+        Button resi = findViewById(R.id.button5);
+        resi.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                rez = "" + racunGenerator.getRezultat();
+
+                boolean pravilen = racunGenerator.checkRezultat(Integer.parseInt(rez));
+
+                if (pravilen) {
+
+                    stRacunov++;
+                    stRac.setText("Št. Pravilnih Računov: " + stRacunov);
+
+                }
+
+                racunGenerator.setDifficulty(stRacunov);
+                tvRacun.setText(racunGenerator.getGenRacun());
+
+                rez = "";
+
+            }
+
+        });
+
     }
 
     private void initButtons() {

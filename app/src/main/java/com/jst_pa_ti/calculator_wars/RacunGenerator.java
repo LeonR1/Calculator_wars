@@ -19,6 +19,15 @@ public class RacunGenerator {
 
     }
 
+    public int getRezultat() {
+
+        if (rezultat > 0)
+            return rezultat;
+        else
+            return -rezultat;
+
+    }
+
     public String getRacun() {
 
         return racun;
