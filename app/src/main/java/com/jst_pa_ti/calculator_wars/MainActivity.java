@@ -28,11 +28,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Random seedGen = new Random();
-        int seed = seedGen.nextInt();
-
         tvRacun = findViewById(R.id.tvRacun);
-        final RacunGenerator racunGenerator = new RacunGenerator(seed);
+        final RacunGenerator racunGenerator = new RacunGenerator(Home.seed);
         initButtons();
 
         tvRacun.setText(racunGenerator.getGenRacun());

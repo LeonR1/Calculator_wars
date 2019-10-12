@@ -13,9 +13,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.util.Random;
+
 public class Home extends AppCompatActivity {
 
     public static BluetoothAdapter bluetoothAdapter;
+    public static int seed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +26,9 @@ public class Home extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
+        Random seedGen = new Random();
+        seed = seedGen.nextInt();
 
         Button streznik = findViewById(R.id.button);
         Button odjemalec = findViewById(R.id.button2);
