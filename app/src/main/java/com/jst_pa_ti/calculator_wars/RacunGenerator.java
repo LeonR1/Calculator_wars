@@ -5,7 +5,7 @@ import java.util.Random;
 public class RacunGenerator {
 
     private int difficulty;
-    private int seed;
+    public static int seed;
     private Random random;
     private int rezultat, type;
     private boolean karkoli = false;

@@ -19,7 +19,7 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="144dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/server_mode"
         app:layout_constraintEnd_toStartOf="@+id/sredina"
@@ -28,7 +28,7 @@
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="144dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/client_mode"
         app:layout_constraintEnd_toStartOf="@+id/desno85"

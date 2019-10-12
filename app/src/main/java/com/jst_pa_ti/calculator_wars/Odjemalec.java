@@ -10,32 +10,67 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+import android.os.ParcelUuid;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.UUID;
+
+import static com.jst_pa_ti.calculator_wars.Home.bluetoothAdapter;
+import static com.jst_pa_ti.calculator_wars.Streznik.nas_uuid;
 
 public class Odjemalec extends AppCompatActivity {
 
     private final static int REQUEST_ENABLE_BT = 1;
     private static ArrayList<Odjemalec.Naprava> naprave = new ArrayList<Odjemalec.Naprava>();
     private ListView seznam_naprav;
-    public static BluetoothAdapter bluetoothAdapter;
+    static TextView ime;
+
+    public static Handler sporocila = new Handler(Looper.getMainLooper()) {
+        @Override
+        public void handleMessage(Message inputMessage) {
+            System.out.println(inputMessage.toString());
+            //if(inputMessage.what==)
+            String s="";
+            byte [] neki=(byte[])inputMessage.obj;
+            //arg1 je število bajtov
+            for(int i=0; i<inputMessage.arg1; i++){
+                s=s+((char)neki[i])+"";
+            }
+            //System.out.println(s);
+            ime.setText(s);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_odjemalec);
 
-        seznam_naprav = findViewById(R.id.list);
+        Handler sporocila = new Handler(Looper.getMainLooper()) {
+            @Override
+            public void handleMessage(Message inputMessage) {
+                System.out.println(inputMessage);
+            }
+        };
 
-        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        ime=findViewById(R.id.textView);
+        seznam_naprav = findViewById(R.id.list);
+        //seznam_naprav.setAdapter(new ArrayAdapter<Odjemalec.Naprava>(this,android.R.layout.simple_list_item_1,naprave));
+
+       /* bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
         if (bluetoothAdapter == null) {
             // Intent intent = new Intent(Streznik.this, Home.class);
@@ -49,7 +84,7 @@ public class Odjemalec extends AppCompatActivity {
                 Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                 startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
             }
-            //while(bluetoothAdapter==null);
+            //while(bluetoothAdapter==null);*/
             bluetoothAdapter.startDiscovery();
             System.out.println("zčnu");
 
@@ -62,7 +97,7 @@ public class Odjemalec extends AppCompatActivity {
 
 
 
-        }
+        //}
         IntentFilter najden = new IntentFilter(BluetoothDevice.ACTION_FOUND);
         registerReceiver(receiver, najden);
         System.out.println("doba");
@@ -72,14 +107,17 @@ public class Odjemalec extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                // System.out.println(parent.getItemAtPosition(position).toString().split("\n")[1]);
                 //BluetoothDevice oo=
-               /* final Odjemalec.ConnectThread test=new Odjemalec.ConnectThread(.getItemAtPosition(position).toString().split("\n")[1]);
+
+                BluetoothDevice naprava=bluetoothAdapter.getRemoteDevice(parent.getItemAtPosition(position).toString().split("\n")[1]);
+                ParcelUuid list[] = naprava.getUuids();
+                final Odjemalec.ConnectThread test=new Odjemalec.ConnectThread(naprava);
                 Thread server=new Thread(new Runnable() {
                     @Override
                     public void run() {
                         test.run();
                     }
                 });
-                server.start();*/
+                server.start();
 
 
             }
@@ -88,6 +126,17 @@ public class Odjemalec extends AppCompatActivity {
     public static void povezano(BluetoothSocket mmSocket){
 
         System.out.println("Neki bo še iz tega");
+        MyBluetoothService blutuf=new MyBluetoothService();
+        final MyBluetoothService.ConnectedThread povezava= blutuf.new ConnectedThread(mmSocket);
+        Thread poslusa=new Thread(new Runnable() {
+            @Override
+            public void run() {
+                povezava.run();
+
+            }
+        });
+        poslusa.start();
+       // seed_demo.setText();
     }
     private class ConnectThread extends Thread {
         private final BluetoothSocket mmSocket;
@@ -102,7 +151,7 @@ public class Odjemalec extends AppCompatActivity {
             try {
                 // Get a BluetoothSocket to connect with the given BluetoothDevice.
                 // MY_UUID is the app's UUID string, also used in the server code.
-                tmp = device.createRfcommSocketToServiceRecord(UUID.randomUUID());
+                tmp = device.createRfcommSocketToServiceRecord(nas_uuid);
             } catch (IOException e) {
                 Log.e("Connection error", "Socket's create() method failed", e);
             }
@@ -119,6 +168,7 @@ public class Odjemalec extends AppCompatActivity {
                 mmSocket.connect();
             } catch (IOException connectException) {
                 // Unable to connect; close the socket and return.
+                System.out.println(connectException);
                 try {
                     mmSocket.close();
                 } catch (IOException closeException) {
@@ -152,7 +202,23 @@ public class Odjemalec extends AppCompatActivity {
                 String deviceName = device.getName();
                 String deviceHardwareAddress = device.getAddress(); // MAC address
                 //naprave.add(deviceName+ "\n" + device.getAddress());
-                naprave.add(new Odjemalec.Naprava(deviceName,deviceHardwareAddress));
+                if(naprave.size()==0&&deviceName!=null){
+                    naprave.add(new Odjemalec.Naprava(deviceName,deviceHardwareAddress));
+                    seznam_naprav.setAdapter(new ArrayAdapter<Odjemalec.Naprava>(context,android.R.layout.simple_list_item_1,naprave));
+                }else if(deviceName!=null) {
+                    for (int i = 0; i < naprave.size(); i++) {
+                        if (deviceName==null) {
+                            break;
+                        }
+                        if (naprave.get(i).vrniMac().equals(deviceHardwareAddress)) {
+                            break;
+                        }
+                        if (i + 1 == naprave.size()) {
+                            naprave.add(new Odjemalec.Naprava(deviceName, deviceHardwareAddress));
+                            seznam_naprav.setAdapter(new ArrayAdapter<Odjemalec.Naprava>(context,android.R.layout.simple_list_item_1,naprave));
+                        }
+                    }
+                }
                 System.out.println(deviceName);
                 seznam_naprav.setAdapter(new ArrayAdapter<Odjemalec.Naprava>(context,android.R.layout.simple_list_item_1,naprave));
             }
@@ -165,6 +231,7 @@ public class Odjemalec extends AppCompatActivity {
         super.onDestroy();
 
         // Don't forget to unregister the ACTION_FOUND receiver.
+        bluetoothAdapter.cancelDiscovery();
         unregisterReceiver(receiver);
     }
     public class Naprava{
@@ -184,4 +251,6 @@ public class Odjemalec extends AppCompatActivity {
             return ime+"\n"+mac;
         }
     }
+
 }
+

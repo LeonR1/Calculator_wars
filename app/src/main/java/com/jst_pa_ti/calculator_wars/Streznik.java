@@ -24,15 +24,17 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import static android.bluetooth.BluetoothAdapter.getDefaultAdapter;
+import static com.jst_pa_ti.calculator_wars.Home.bluetoothAdapter;
 
 public class Streznik extends AppCompatActivity {
 
     private final static int REQUEST_ENABLE_BT = 1;
     private static ArrayList<Naprava> naprave = new ArrayList<Naprava>();
     private ListView seznam_naprav;
-    public static BluetoothAdapter bluetoothAdapter;
-    UUID neki;
+
+    //UUID neki;
     BluetoothServerSocket server_socket;
+    public static UUID nas_uuid=UUID.fromString("accf84f5-005f-477d-86e1-1b2254e88259");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +43,7 @@ public class Streznik extends AppCompatActivity {
 
         seznam_naprav=findViewById(R.id.list);
 
-        bluetoothAdapter=BluetoothAdapter.getDefaultAdapter();
+        /*bluetoothAdapter=BluetoothAdapter.getDefaultAdapter();
 
         if (bluetoothAdapter == null) {
            // Intent intent = new Intent(Streznik.this, Home.class);
@@ -55,9 +57,9 @@ public class Streznik extends AppCompatActivity {
                 Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                 startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
             }
-            //while(bluetoothAdapter==null);
-            bluetoothAdapter.startDiscovery();
-            System.out.println("zčnu");
+            //while(bluetoothAdapter==null);*/
+            /*bluetoothAdapter.startDiscovery();
+            System.out.println("zčnu");*/
 
             //nrdiSocket();
             //while(server_socket==null);
@@ -77,7 +79,7 @@ public class Streznik extends AppCompatActivity {
 
 
 
-        }
+        //}
         // Create a BroadcastReceiver for ACTION_FOUND.
         IntentFilter najden = new IntentFilter(BluetoothDevice.ACTION_FOUND);
         registerReceiver(receiver, najden);
@@ -117,6 +119,7 @@ public class Streznik extends AppCompatActivity {
         super.onDestroy();
 
         // Don't forget to unregister the ACTION_FOUND receiver.
+        bluetoothAdapter.cancelDiscovery();
         unregisterReceiver(receiver);
     }
 
@@ -151,6 +154,21 @@ public class Streznik extends AppCompatActivity {
     public static void povezano(BluetoothSocket socket){
         System.out.println("oštijajjajajajaajajajajjaajjajajajajaj");
 
+        MyBluetoothService blutuf=new MyBluetoothService();
+        final MyBluetoothService.ConnectedThread povezava= blutuf.new ConnectedThread(socket);
+        Thread poslusa=new Thread(new Runnable() {
+            @Override
+            public void run() {
+                povezava.run();
+
+            }
+        });
+        poslusa.start();
+        //int seed=123;
+        //byte[] strBytes = (seed+"").getBytes();
+        byte[] strBytes=bluetoothAdapter.getName().getBytes();
+        povezava.write(strBytes);
+
     }
 
        private class AcceptThread extends Thread {
@@ -162,8 +180,7 @@ public class Streznik extends AppCompatActivity {
                     BluetoothServerSocket tmp = null;
                     try {
                         // MY_UUID is the app's UUID string, also used by the client code.
-                        neki=UUID.randomUUID();
-                        tmp = bluetoothAdapter.listenUsingRfcommWithServiceRecord("Calculator wars", neki);
+                        tmp = bluetoothAdapter.listenUsingRfcommWithServiceRecord("Calculator wars", nas_uuid);
                     } catch (IOException e) {
                         Log.e("Connection error", "Socket's listen() method failed", e);
                     }
