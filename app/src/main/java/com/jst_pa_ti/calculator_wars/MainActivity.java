@@ -3,6 +3,7 @@ package com.jst_pa_ti.calculator_wars;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,9 +14,12 @@ public class MainActivity extends AppCompatActivity {
 
     public static int stRacunov = 0;
     public static String rez = "";
-    public static TextView tvRacun, stRac;
+    public static TextView tvRacun, stRac, tvTime;
     public static Button btns[] = new Button[12];
-    public static int btnId[] = new int[10];
+    public static String time;
+    public Timer timer = new Timer(60);
+    public Thread thread = new Thread(timer);
+    public Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         tvRacun.setText(racunGenerator.getGenRacun());
         stRac = findViewById(R.id.stRacunov);
         stRac.setText("Št. Pravilnih Računov: " + stRacunov);
+        tvTime = findViewById(R.id.timer);
 
         for (int i = 0; i < btns.length; i++) {
 
@@ -121,6 +126,8 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+        thread.start();
+
     }
 
     private void initButtons() {
@@ -137,6 +144,45 @@ public class MainActivity extends AppCompatActivity {
         btns[9] = findViewById(R.id.btn9);
         btns[10] = findViewById(R.id.btnEqual);
         btns[11] = findViewById(R.id.btnDelete);
+
+    }
+
+    class Timer implements Runnable {
+
+        int sekund = 0;
+
+        public Timer(int secund) {
+
+            this.sekund = secund;
+
+        }
+
+        @Override
+        public void run() {
+
+            for (int i = sekund; i >= 0; i--) {
+
+                time = "Preostali čas: " + i + "s";
+                handler.post(new Runnable() {
+
+                    @Override
+                    public void run() {
+
+                        tvTime.setText(time);
+
+                    }
+
+                });
+
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+        }
 
     }
 
