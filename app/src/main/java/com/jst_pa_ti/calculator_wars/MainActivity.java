@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     public Timer timer = new Timer(60);
     public Thread thread = new Thread(timer);
     public Handler handler = new Handler();
-    public static int lives;
+    public static int lives, skips;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         lives = 3;
         stRacunov = 0;
         rez = "";
+        skips = 3;
 
         for (int i = 0; i < btns.length; i++) {
 
@@ -106,6 +107,27 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 tvRacun.setText(racunGenerator.getGenRacun());
+
+            }
+
+        });
+
+        final Button btnSkip = findViewById(R.id.btnSkip);
+        btnSkip.setText("Skip: " + skips);
+        btnSkip.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                tvRacun.setText(racunGenerator.getGenRacun());
+                skips--;
+                btnSkip.setText("Skip: " + skips);
+
+                if (skips == 0) {
+
+                    btnSkip.setEnabled(false);
+
+                }
 
             }
 
