@@ -107,8 +107,8 @@
             android:id="@+id/btn2"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text="2"
             android:autoSizeTextType="uniform"
+            android:text="2"
             app:layout_constraintBottom_toTopOf="@+id/horKeyHelper3"
             app:layout_constraintEnd_toStartOf="@+id/verKeyHelper2"
             app:layout_constraintStart_toStartOf="@+id/verKeyHelper1"
@@ -252,10 +252,29 @@
         android:gravity="center"
         android:text="Time"
         app:layout_constraintBottom_toTopOf="@+id/stRacunov"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnGenRacun"
         app:layout_constraintVertical_bias="0.517" />
+
+    <TextView
+        android:id="@+id/lives"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:autoSizeTextType="uniform"
+        android:gravity="center"
+        android:text="Lives"
+        app:layout_constraintBottom_toTopOf="@+id/stRacunov"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/timer"
+        app:layout_constraintTop_toBottomOf="@+id/btnGenRacun"
+        app:layout_constraintVertical_bias="0.517" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

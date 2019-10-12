@@ -2,6 +2,7 @@ package com.jst_pa_ti.calculator_wars;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -12,14 +13,15 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static int stRacunov = 0;
-    public static String rez = "";
-    public static TextView tvRacun, stRac, tvTime;
+    public static int stRacunov;
+    public static String rez;
+    public static TextView tvRacun, stRac, tvTime, tvLives;
     public static Button btns[] = new Button[12];
     public static String time;
     public Timer timer = new Timer(60);
     public Thread thread = new Thread(timer);
     public Handler handler = new Handler();
+    public static int lives;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,12 @@ public class MainActivity extends AppCompatActivity {
         stRac = findViewById(R.id.stRacunov);
         stRac.setText("Št. Pravilnih Računov: " + stRacunov);
         tvTime = findViewById(R.id.timer);
+        tvLives = findViewById(R.id.lives);
+        tvLives.setText("Lives: 3");
+
+        lives = 3;
+        stRacunov = 0;
+        rez = "";
 
         for (int i = 0; i < btns.length; i++) {
 
@@ -72,6 +80,12 @@ public class MainActivity extends AppCompatActivity {
 
                             stRacunov++;
                             stRac.setText("Št. Pravilnih Računov: " + stRacunov);
+
+                        }
+                        else {
+
+                            lives--;
+                            tvLives.setText("Lives: " + lives);
 
                         }
 
@@ -130,6 +144,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void finish() {
+
+        startActivity(new Intent(MainActivity.this, Home.class));
+
+    }
+
     private void initButtons() {
 
         btns[0] = findViewById(R.id.btn0);
@@ -162,6 +182,13 @@ public class MainActivity extends AppCompatActivity {
 
             for (int i = sekund; i >= 0; i--) {
 
+                if (lives == 0) {
+
+                    finish();
+                    return;
+
+                }
+
                 time = "Preostali čas: " + i + "s";
                 handler.post(new Runnable() {
 
@@ -181,6 +208,8 @@ public class MainActivity extends AppCompatActivity {
                 }
 
             }
+
+            finish();
 
         }
 
