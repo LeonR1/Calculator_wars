@@ -233,6 +233,7 @@
         android:autoSizeTextType="uniform"
         android:gravity="center"
         android:text="Št. Pravilnih Računov:"
+        android:textColor="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline6" />
@@ -271,6 +272,7 @@
         android:autoSizeTextType="uniform"
         android:gravity="center"
         android:text="Time"
+        android:textColor="@color/colorWhite"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="parent"
@@ -287,6 +289,7 @@
         android:autoSizeTextType="uniform"
         android:gravity="center"
         android:text="Lives"
+        android:textColor="@color/colorWhite"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline2"

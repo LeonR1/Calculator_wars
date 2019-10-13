@@ -5,4 +5,5 @@
     <color name="colorAccent">#D81B60</color>
     <color name="colorScreen">#ede2bb</color>
     <color name="colorCalculator">#6b6b6b</color>
+    <color name="colorWhite">#FFFFFF</color>
 </resources>
