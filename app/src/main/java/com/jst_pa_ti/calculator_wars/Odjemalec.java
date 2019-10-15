@@ -43,9 +43,9 @@ public class Odjemalec extends AppCompatActivity {
     public static Handler sporocila = new Handler(Looper.getMainLooper()) {
         @Override
         public void handleMessage(Message inputMessage) {
-            System.out.println(inputMessage.toString());
+            //System.out.println(inputMessage.toString());
             //if(inputMessage.what==)
-            String s="";
+           if(inputMessage.arg2==0){ String s="";
             byte [] neki=(byte[])inputMessage.obj;
             //arg1 je število bajtov
             for(int i=0; i<inputMessage.arg1; i++){
@@ -55,6 +55,10 @@ public class Odjemalec extends AppCompatActivity {
             ime.setText(s);
             seed=Integer.parseInt(s);
             zacni();
+        }else if(inputMessage.arg2==1){//prenesemo rezultat
+
+
+           }
         }
     };
 public static void zacni(){

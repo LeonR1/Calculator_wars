@@ -63,7 +63,7 @@ public class MyBluetoothService {
                     numBytes = mmInStream.read(mmBuffer);
                     // Send the obtained bytes to the UI activity.
                     Message readMsg = handler.obtainMessage(
-                            com.jst_pa_ti.calculator_wars.MyBluetoothService.MessageConstants.MESSAGE_READ, numBytes, -1,
+                            com.jst_pa_ti.calculator_wars.MyBluetoothService.MessageConstants.MESSAGE_READ, numBytes, MainActivity.stanje,
                             mmBuffer);
                     readMsg.sendToTarget();
                 } catch (IOException e) {

@@ -22,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     public Thread thread = new Thread(timer);
     public Handler handler = new Handler();
     public static int lives, skips;
+    public static int stanje=0;// 0= igra se še ni začela  1=igra se je končala
+    public static int olives,oskips,ostRacunov; //nasprotnikov rezultat
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void finish() {
 
-        startActivity(new Intent(MainActivity.this, Home.class));
+        startActivity(new Intent(MainActivity.this, Konec.class));
 
     }
 

@@ -13,9 +13,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Odjemalec"></activity>
+        <activity android:name=".Konec"></activity>
+        <activity android:name=".Odjemalec" />
         <activity android:name=".Streznik" />
-        <activity android:name=".MainActivity" android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".Home">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
