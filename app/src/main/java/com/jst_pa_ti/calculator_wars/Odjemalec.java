@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import static com.jst_pa_ti.calculator_wars.Home.bluetoothAdapter;
+import static com.jst_pa_ti.calculator_wars.Home.seed;
 import static com.jst_pa_ti.calculator_wars.Streznik.nas_uuid;
 
 public class Odjemalec extends AppCompatActivity {
@@ -37,6 +38,7 @@ public class Odjemalec extends AppCompatActivity {
     private static ArrayList<Odjemalec.Naprava> naprave = new ArrayList<Odjemalec.Naprava>();
     private ListView seznam_naprav;
     static TextView ime;
+    private static Context mContext;
 
     public static Handler sporocila = new Handler(Looper.getMainLooper()) {
         @Override
@@ -51,13 +53,20 @@ public class Odjemalec extends AppCompatActivity {
             }
             //System.out.println(s);
             ime.setText(s);
+            seed=Integer.parseInt(s);
+            zacni();
         }
     };
-
+public static void zacni(){
+    Intent zacni=new Intent(mContext, MainActivity.class);
+    mContext.startActivity(zacni);
+}
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_odjemalec);
+
+        mContext=this;
 
         Handler sporocila = new Handler(Looper.getMainLooper()) {
             @Override

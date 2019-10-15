@@ -25,22 +25,29 @@ import java.util.UUID;
 
 import static android.bluetooth.BluetoothAdapter.getDefaultAdapter;
 import static com.jst_pa_ti.calculator_wars.Home.bluetoothAdapter;
+import static com.jst_pa_ti.calculator_wars.Home.seed;
 
 public class Streznik extends AppCompatActivity {
 
     private final static int REQUEST_ENABLE_BT = 1;
     private static ArrayList<Naprava> naprave = new ArrayList<Naprava>();
     private ListView seznam_naprav;
-
+    private static Context mContext;
     //UUID neki;
     BluetoothServerSocket server_socket;
     public static UUID nas_uuid=UUID.fromString("accf84f5-005f-477d-86e1-1b2254e88259");
+
+
+    public static void zacni(){
+        Intent zacni=new Intent(mContext, MainActivity.class);
+        mContext.startActivity(zacni);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_streznik);
-
+        mContext=this;
         seznam_naprav=findViewById(R.id.list);
 
         /*bluetoothAdapter=BluetoothAdapter.getDefaultAdapter();
@@ -166,9 +173,10 @@ public class Streznik extends AppCompatActivity {
         poslusa.start();
         //int seed=123;
         //byte[] strBytes = (seed+"").getBytes();
-        byte[] strBytes=bluetoothAdapter.getName().getBytes();
-        povezava.write(strBytes);
-
+       // byte[] strBytes=bluetoothAdapter.getName().getBytes();
+        byte[] seme=(seed+"").getBytes();
+        povezava.write(seme);
+        zacni();
     }
 
        private class AcceptThread extends Thread {
