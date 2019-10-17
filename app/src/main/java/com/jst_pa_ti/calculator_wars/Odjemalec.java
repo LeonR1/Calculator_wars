@@ -39,26 +39,33 @@ public class Odjemalec extends AppCompatActivity {
     private ListView seznam_naprav;
     static TextView ime;
     private static Context mContext;
+    public static MyBluetoothService.ConnectedThread povezava_public_o;
 
     public static Handler sporocila = new Handler(Looper.getMainLooper()) {
         @Override
         public void handleMessage(Message inputMessage) {
             //System.out.println(inputMessage.toString());
             //if(inputMessage.what==)
-           if(inputMessage.arg2==0){ String s="";
+
+            String s="";
             byte [] neki=(byte[])inputMessage.obj;
             //arg1 je število bajtov
             for(int i=0; i<inputMessage.arg1; i++){
                 s=s+((char)neki[i])+"";
             }
             //System.out.println(s);
-            ime.setText(s);
-            seed=Integer.parseInt(s);
-            zacni();
-        }else if(inputMessage.arg2==1){//prenesemo rezultat
-
-
-           }
+            if(inputMessage.arg2==0){
+                ime.setText(s);
+                seed=Integer.parseInt(s);
+                zacni();
+            }else if(inputMessage.arg2==1){//prenesemo rezultat  1-st.skipov, 2- st.zivljenj, 3-st.koncanih racunov
+                String [] tab=s.split("\n");
+                MainActivity.oskips=Integer.parseInt(tab[0]);
+                MainActivity.olives=Integer.parseInt(tab[1]);
+                MainActivity.ostRacunov=Integer.parseInt(tab[2]);
+                MainActivity.nasprotnik=tab[3];
+                MainActivity.prejel=true;
+            }
         }
     };
 public static void zacni(){
@@ -144,6 +151,7 @@ public static void zacni(){
         Thread poslusa=new Thread(new Runnable() {
             @Override
             public void run() {
+                povezava_public_o=povezava;
                 povezava.run();
 
             }

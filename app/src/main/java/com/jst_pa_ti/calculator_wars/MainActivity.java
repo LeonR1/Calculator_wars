@@ -18,17 +18,21 @@ public class MainActivity extends AppCompatActivity {
     public static TextView tvRacun, stRac, tvTime, tvLives;
     public static Button btns[] = new Button[12];
     public static String time;
-    public Timer timer = new Timer(60);
+    public Timer timer = new Timer(9);
     public Thread thread = new Thread(timer);
     public Handler handler = new Handler();
-    public static int lives, skips;
+    public static int lives, skips;//sm mogu dat na nč da ne teži
     public static int stanje=0;// 0= igra se še ni začela  1=igra se je končala
     public static int olives,oskips,ostRacunov; //nasprotnikov rezultat
+    public static boolean prejel=false; //rata true ko prejmemo rezultat nasprotnika
+    public static String nasprotnik; //ime nasprotnika
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        stanje=1;
 
         tvRacun = findViewById(R.id.tvRacun);
         final RacunGenerator racunGenerator = new RacunGenerator(Home.seed);
@@ -166,9 +170,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void finish() {
-
         startActivity(new Intent(MainActivity.this, Konec.class));
-
+        if(Streznik.jeStreznik){
+            byte[] skip=(skips+"\n"+lives+"\n"+stRacunov+"\n"+Home.ime).getBytes();
+            Streznik.povezava_public.write(skip);
+        }else{
+            byte[] skip=(skips+"\n"+lives+"\n"+stRacunov+"\n"+Home.ime).getBytes();
+            Odjemalec.povezava_public_o.write(skip);
+        }
     }
 
     private void initButtons() {

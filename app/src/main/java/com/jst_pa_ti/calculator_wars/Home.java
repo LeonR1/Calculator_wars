@@ -19,6 +19,7 @@ public class Home extends AppCompatActivity {
 
     public static BluetoothAdapter bluetoothAdapter;
     public static int seed;
+    public static String ime; //bluetooth ime naprave
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,7 @@ public class Home extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        ime=bluetoothAdapter.getName();
 
         Random seedGen = new Random();
         seed = seedGen.nextInt();

@@ -11,6 +11,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -36,12 +39,37 @@ public class Streznik extends AppCompatActivity {
     //UUID neki;
     BluetoothServerSocket server_socket;
     public static UUID nas_uuid=UUID.fromString("accf84f5-005f-477d-86e1-1b2254e88259");
-
+    public static boolean jeStreznik;
+    public static MyBluetoothService.ConnectedThread povezava_public;
 
     public static void zacni(){
         Intent zacni=new Intent(mContext, MainActivity.class);
         mContext.startActivity(zacni);
     }
+
+    public static Handler sporocila = new Handler(Looper.getMainLooper()) {
+        @Override
+        public void handleMessage(Message inputMessage) {
+            //System.out.println(inputMessage.toString());
+            //if(inputMessage.what==)
+
+            String s="";
+            byte [] neki=(byte[])inputMessage.obj;
+            //arg1 je število bajtov
+            for(int i=0; i<inputMessage.arg1; i++){
+                s=s+((char)neki[i])+"";
+            }
+            //System.out.println(s);
+            if(inputMessage.arg2==1){//prenesemo rezultat  1-st.skipov, 2- st.zivljenj, 3-st.koncanih racunov
+                String [] tab=s.split("\n");
+                MainActivity.oskips=Integer.parseInt(tab[0]);
+                MainActivity.olives=Integer.parseInt(tab[1]);
+                MainActivity.ostRacunov=Integer.parseInt(tab[2]);
+                MainActivity.nasprotnik=tab[3];
+                MainActivity.prejel=true;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +78,7 @@ public class Streznik extends AppCompatActivity {
         mContext=this;
         seznam_naprav=findViewById(R.id.list);
 
+        jeStreznik=true;
         /*bluetoothAdapter=BluetoothAdapter.getDefaultAdapter();
 
         if (bluetoothAdapter == null) {
@@ -166,8 +195,8 @@ public class Streznik extends AppCompatActivity {
         Thread poslusa=new Thread(new Runnable() {
             @Override
             public void run() {
+                povezava_public=povezava;
                 povezava.run();
-
             }
         });
         poslusa.start();
