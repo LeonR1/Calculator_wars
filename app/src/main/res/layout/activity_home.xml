@@ -64,7 +64,7 @@
         android:id="@+id/button3"
         android:layout_width="288dp"
         android:layout_height="wrap_content"
-        android:text="Rendom odi boštijana"
+        android:text="Racun"
         app:layout_constraintBottom_toTopOf="@+id/dol80"
         app:layout_constraintEnd_toStartOf="@+id/desno85"
         app:layout_constraintStart_toStartOf="@+id/levo15"
