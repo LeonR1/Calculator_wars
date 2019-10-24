@@ -6,4 +6,5 @@
     <color name="colorScreen">#ede2bb</color>
     <color name="colorCalculator">#6b6b6b</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="colorKeyboard">#969696</color>
 </resources>
