@@ -26,8 +26,6 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        ime=bluetoothAdapter.getName();
 
         Random seedGen = new Random();
         seed = seedGen.nextInt();
@@ -83,15 +81,16 @@ public class Home extends AppCompatActivity {
 
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
+
         if (bluetoothAdapter == null) {
             Toast.makeText(getApplicationContext(), "Naprava ne podpira Bluetooth povezave. :(", Toast.LENGTH_LONG).show();
-
 
         } else {
             if (!bluetoothAdapter.isEnabled()) {
                 Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                 startActivityForResult(enableBtIntent, 1);
             }
+            ime=bluetoothAdapter.getName();
         }
 
     }
