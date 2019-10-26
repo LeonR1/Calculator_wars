@@ -55,17 +55,28 @@ public class Odjemalec extends AppCompatActivity {
             }
             //System.out.println(s);
             if(inputMessage.arg2==0){
-                ime.setText(s);
-                seed=Integer.parseInt(s);
+                /*ime.setText(s);
+                seed=Integer.parseInt(s);*/
+                String [] tab=s.split("\n");
+                seed=Integer.parseInt(tab[0]);
+                MainActivity.skips=Integer.parseInt(tab[1]);
+                MainActivity.lives=Integer.parseInt(tab[2]);
+                MainActivity.trajanje=Integer.parseInt(tab[3]);
                 zacni();
-            }else if(inputMessage.arg2==1){//prenesemo rezultat  1-st.skipov, 2- st.zivljenj, 3-st.koncanih racunov
+            }else if(inputMessage.arg2==1){//arg2 =1 -> prenesemo rezultat
                 String [] tab=s.split("\n");
                 MainActivity.oskips=Integer.parseInt(tab[0]);
                 MainActivity.olives=Integer.parseInt(tab[1]);
                 MainActivity.ostRacunov=Integer.parseInt(tab[2]);
                 MainActivity.nasprotnik=tab[3];
                 MainActivity.prejel=true;
-            }
+            }/*if(inputMessage.arg2==-1){////arg2 =-1 -> prenesemo nastavitve igre
+                String [] tab=s.split("\n");
+                MainActivity.skips=Integer.parseInt(tab[0]);
+                MainActivity.lives=Integer.parseInt(tab[1]);
+                MainActivity.trajanje=Integer.parseInt(tab[2]);
+                //MainActivity.prejel=true;
+            }*/
         }
     };
 public static void zacni(){

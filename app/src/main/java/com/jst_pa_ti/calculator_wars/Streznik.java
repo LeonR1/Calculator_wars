@@ -16,9 +16,12 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -29,12 +32,13 @@ import java.util.UUID;
 import static android.bluetooth.BluetoothAdapter.getDefaultAdapter;
 import static com.jst_pa_ti.calculator_wars.Home.bluetoothAdapter;
 import static com.jst_pa_ti.calculator_wars.Home.seed;
+import static com.jst_pa_ti.calculator_wars.MainActivity.stRacunov;
 
 public class Streznik extends AppCompatActivity {
 
     private final static int REQUEST_ENABLE_BT = 1;
     private static ArrayList<Naprava> naprave = new ArrayList<Naprava>();
-    private ListView seznam_naprav;
+    //private ListView seznam_naprav;
     private static Context mContext;
     //UUID neki;
     BluetoothServerSocket server_socket;
@@ -60,14 +64,21 @@ public class Streznik extends AppCompatActivity {
                 s=s+((char)neki[i])+"";
             }
             //System.out.println(s);
-            if(inputMessage.arg2==1){//prenesemo rezultat  1-st.skipov, 2- st.zivljenj, 3-st.koncanih racunov
+            if(inputMessage.arg2==1){////arg2 =1 -> prenesemo rezultat
                 String [] tab=s.split("\n");
                 MainActivity.oskips=Integer.parseInt(tab[0]);
                 MainActivity.olives=Integer.parseInt(tab[1]);
                 MainActivity.ostRacunov=Integer.parseInt(tab[2]);
                 MainActivity.nasprotnik=tab[3];
                 MainActivity.prejel=true;
-            }
+            }/*if(inputMessage.arg2==-1){////arg2 =-1 -> prenesemo nastavitve igre
+                String [] tab=s.split("\n");
+                MainActivity.oskips=Integer.parseInt(tab[0]);
+                MainActivity.olives=Integer.parseInt(tab[1]);
+                MainActivity.ostRacunov=Integer.parseInt(tab[2]);
+                MainActivity.nasprotnik=tab[3];
+                MainActivity.prejel=true;
+            }*/
         }
     };
 
@@ -76,9 +87,40 @@ public class Streznik extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_streznik);
         mContext=this;
-        seznam_naprav=findViewById(R.id.list);
+       // seznam_naprav=findViewById(R.id.list);
 
         jeStreznik=true;
+
+
+        Button ok= findViewById(R.id.enter);
+
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TextView skip=findViewById(R.id.skips);
+                TextView live=findViewById(R.id.lives);
+                TextView length=findViewById(R.id.time);
+
+                if(skip.getText().length()!=0){
+                    MainActivity.skips=Integer.parseInt(skip.getText()+"");
+                }
+                if(live.getText().length()!=0){
+                    MainActivity.lives=Integer.parseInt(live.getText()+"");
+                }
+                if(length.getText().length()!=0){
+                    MainActivity.trajanje=Integer.parseInt(length.getText()+"");
+                }
+                final AcceptThread test=new AcceptThread();
+                Thread server=new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        test.run();
+                    }
+                });
+                server.start();
+
+            }
+        });
         /*bluetoothAdapter=BluetoothAdapter.getDefaultAdapter();
 
         if (bluetoothAdapter == null) {
@@ -104,31 +146,23 @@ public class Streznik extends AppCompatActivity {
             discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
             startActivity(discoverableIntent);
 
-            final AcceptThread test=new AcceptThread();
-            Thread server=new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    test.run();
-                }
-            });
-            server.start();
 
 
 
         //}
         // Create a BroadcastReceiver for ACTION_FOUND.
-        IntentFilter najden = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+        /*IntentFilter najden = new IntentFilter(BluetoothDevice.ACTION_FOUND);
         registerReceiver(receiver, najden);
-        System.out.println("doba");
+        System.out.println("doba");*/
 
-        seznam_naprav.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*seznam_naprav.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //System.out.println(parent.getItemAtPosition(position).toString());
 
 
             }
-        });
+        });*/
 
     }
 
@@ -144,7 +178,7 @@ public class Streznik extends AppCompatActivity {
                 //naprave.add(deviceName+ "\n" + device.getAddress());
                 naprave.add(new Naprava(deviceName,deviceHardwareAddress));
                 System.out.println(deviceName);
-                seznam_naprav.setAdapter(new ArrayAdapter<Naprava>(context,android.R.layout.simple_list_item_1,naprave));
+                //seznam_naprav.setAdapter(new ArrayAdapter<Naprava>(context,android.R.layout.simple_list_item_1,naprave));
             }
         }
     };
@@ -203,8 +237,10 @@ public class Streznik extends AppCompatActivity {
         //int seed=123;
         //byte[] strBytes = (seed+"").getBytes();
        // byte[] strBytes=bluetoothAdapter.getName().getBytes();
-        byte[] seme=(seed+"").getBytes();
-        povezava.write(seme);
+        byte[] skip=(seed+"\n"+MainActivity.skips+"\n"+MainActivity.lives+"\n"+MainActivity.trajanje).getBytes();
+        Streznik.povezava_public.write(skip);
+        /*byte[] seme=(seed+"").getBytes();
+        povezava.write(seme);*/
         zacni();
     }
 

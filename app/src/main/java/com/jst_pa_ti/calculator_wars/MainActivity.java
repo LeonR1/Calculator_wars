@@ -18,11 +18,12 @@ public class MainActivity extends AppCompatActivity {
     public static TextView tvRacun, stRac, tvTime, tvLives;
     public static Button btns[] = new Button[12];
     public static String time;
-    public Timer timer = new Timer(180);
+    public static int trajanje=180;
+    public Timer timer = new Timer(trajanje);
     public Thread thread = new Thread(timer);
     public Handler handler = new Handler();
     public static int lives, skips;//sm mogu dat na nč da ne teži
-    public static int stanje=0;// 0= igra se še ni začela  1=igra se je končala
+    public static int stanje=0;//  0= igra se še ni začela  1=igra se je končala
     public static int olives,oskips,ostRacunov; //nasprotnikov rezultat
     public static boolean prejel=false; //rata true ko prejmemo rezultat nasprotnika
     public static String nasprotnik; //ime nasprotnika
