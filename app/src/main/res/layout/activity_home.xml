@@ -13,7 +13,7 @@
         android:layout_height="0dp"
         android:autoSizeTextType="uniform"
         android:gravity="center"
-        android:text="Pozdravljeni, neko ime"
+        android:text="Calculator Wars"
         app:layout_constraintBottom_toTopOf="@+id/guideline10"
         app:layout_constraintEnd_toStartOf="@+id/guideline26"
         app:layout_constraintStart_toStartOf="@+id/guideline25"
