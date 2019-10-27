@@ -74,6 +74,7 @@ public class Home extends AppCompatActivity {
             }
         });
 
+        //ti se malo hecaš fnt
 
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.READ_CONTACTS)
