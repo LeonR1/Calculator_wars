@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -40,6 +41,9 @@ public class Home extends AppCompatActivity {
         Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.tacoma_narrows);
         videoview.setVideoURI(uri);
         videoview.start();
+
+        WebView web=findViewById(R.id.webView);
+        web.loadUrl("file:///android_asset/gif_html.html");
 
         streznik.setOnClickListener(new View.OnClickListener() {
             @Override
