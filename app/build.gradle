@@ -27,4 +27,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     compileOnly 'com.newtronlabs.easybluetooth:easybluetooth:2.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'com.github.bumptech.glide:glide:4.10.0'
 }

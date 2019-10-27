@@ -13,8 +13,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.VideoView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.Random;
 
@@ -44,6 +48,10 @@ public class Home extends AppCompatActivity {
 
         WebView web=findViewById(R.id.webView);
         web.loadUrl("file:///android_asset/gif_html.html");
+
+        Uri uri1 = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.nje);
+        ImageView ojej=findViewById(R.id.imageView);
+        Glide.with(this).load(uri1).into(ojej);
 
         streznik.setOnClickListener(new View.OnClickListener() {
             @Override
