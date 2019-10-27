@@ -230,17 +230,16 @@ public class Streznik extends AppCompatActivity {
             @Override
             public void run() {
                 povezava_public=povezava;
+                poslji_parametre();
                 povezava.run();
             }
         });
         poslusa.start();
-        //int seed=123;
-        //byte[] strBytes = (seed+"").getBytes();
-       // byte[] strBytes=bluetoothAdapter.getName().getBytes();
-        byte[] skip=(seed+"\n"+MainActivity.skips+"\n"+MainActivity.lives+"\n"+MainActivity.trajanje).getBytes();
-        Streznik.povezava_public.write(skip);
-        /*byte[] seme=(seed+"").getBytes();
-        povezava.write(seme);*/
+
+    }
+    public static void poslji_parametre(){
+        byte[] neki=(seed+"\n"+MainActivity.skips+"\n"+MainActivity.lives+"\n"+MainActivity.trajanje).getBytes();
+        Streznik.povezava_public.write(neki);
         zacni();
     }
 

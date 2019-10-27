@@ -59,6 +59,7 @@ public class Odjemalec extends AppCompatActivity {
                 seed=Integer.parseInt(s);*/
                 String [] tab=s.split("\n");
                 seed=Integer.parseInt(tab[0]);
+                System.out.println(tab[1]+" "+tab[2]+" "+tab[3]);
                 MainActivity.skips=Integer.parseInt(tab[1]);
                 MainActivity.lives=Integer.parseInt(tab[2]);
                 MainActivity.trajanje=Integer.parseInt(tab[3]);

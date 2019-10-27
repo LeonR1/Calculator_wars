@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     public Timer timer = new Timer(trajanje);
     public Thread thread = new Thread(timer);
     public Handler handler = new Handler();
-    public static int lives, skips;//sm mogu dat na nč da ne teži
+    public static int lives, skips=3;
     public static int stanje=0;//  0= igra se še ni začela  1=igra se je končala
     public static int olives,oskips,ostRacunov; //nasprotnikov rezultat
     public static boolean prejel=false; //rata true ko prejmemo rezultat nasprotnika
@@ -44,12 +44,12 @@ public class MainActivity extends AppCompatActivity {
         stRac.setText("Št. Pravilnih Računov: " + stRacunov);
         tvTime = findViewById(R.id.timer);
         tvLives = findViewById(R.id.lives);
-        tvLives.setText("Lives: 3");
+        tvLives.setText("Lives: "+lives);
 
-        lives = 3;
+        //lives = 3;
         stRacunov = 0;
         rez = "";
-        skips = 3;
+        //skips = 3;
 
         for (int i = 0; i < btns.length; i++) {
 
