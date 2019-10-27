@@ -112,4 +112,14 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.735" />
 
+    <VideoView
+        android:id="@+id/videoView"
+        android:layout_width="112dp"
+        android:layout_height="163dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline12"
+        app:layout_constraintEnd_toStartOf="@+id/sredina"
+        app:layout_constraintHorizontal_bias="0.531"
+        app:layout_constraintStart_toStartOf="@+id/levo15"
+        app:layout_constraintTop_toBottomOf="@+id/button" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

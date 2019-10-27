@@ -8,10 +8,12 @@ import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import java.util.Random;
 
@@ -33,6 +35,11 @@ public class Home extends AppCompatActivity {
         Button streznik = findViewById(R.id.button);
         Button odjemalec = findViewById(R.id.button2);
         Button racun = findViewById(R.id.button3);
+
+        VideoView videoview = (VideoView) findViewById(R.id.videoView);
+        Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.tacoma_narrows);
+        videoview.setVideoURI(uri);
+        videoview.start();
 
         streznik.setOnClickListener(new View.OnClickListener() {
             @Override
