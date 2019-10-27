@@ -11,12 +11,9 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
-import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
 
@@ -41,17 +38,13 @@ public class Home extends AppCompatActivity {
         Button odjemalec = findViewById(R.id.button2);
         Button racun = findViewById(R.id.button3);
 
-        VideoView videoview = (VideoView) findViewById(R.id.videoView);
-        Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.tacoma_narrows);
-        videoview.setVideoURI(uri);
-        videoview.start();
+        Uri uri1 = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.calc_l);
+        ImageView calcL=findViewById(R.id.calc_l);
+        Glide.with(this).load(uri1).into(calcL);
 
-        WebView web=findViewById(R.id.webView);
-        web.loadUrl("file:///android_asset/gif_html.html");
-
-        Uri uri1 = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.nje);
-        ImageView ojej=findViewById(R.id.imageView);
-        Glide.with(this).load(uri1).into(ojej);
+        Uri urir = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.calc_r);
+        ImageView calcR=findViewById(R.id.calc_r);
+        Glide.with(this).load(urir).into(calcR);
 
         streznik.setOnClickListener(new View.OnClickListener() {
             @Override
