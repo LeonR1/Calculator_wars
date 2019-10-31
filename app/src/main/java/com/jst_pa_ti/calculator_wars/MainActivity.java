@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     public Timer timer = new Timer(trajanje);
     public Thread thread = new Thread(timer);
     public Handler handler = new Handler();
-    public static int lives, skips=3;
+    public static int lives =3, skips=3;
     public static int stanje=0;//  0= igra se še ni začela  1=igra se je končala
     public static int olives,oskips,ostRacunov; //nasprotnikov rezultat
     public static boolean prejel=false; //rata true ko prejmemo rezultat nasprotnika

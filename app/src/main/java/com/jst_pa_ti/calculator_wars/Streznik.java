@@ -91,6 +91,13 @@ public class Streznik extends AppCompatActivity {
 
         jeStreznik=true;
 
+        TextView skipd=findViewById(R.id.skipsd);
+        TextView lived=findViewById(R.id.livesd);
+        TextView lengthd=findViewById(R.id.timed);
+
+        skipd.setText(MainActivity.skips+"");
+        lived.setText(MainActivity.lives+"");
+        lengthd.setText(MainActivity.trajanje+"");
 
         Button ok= findViewById(R.id.enter);
 
@@ -190,7 +197,11 @@ public class Streznik extends AppCompatActivity {
 
         // Don't forget to unregister the ACTION_FOUND receiver.
         bluetoothAdapter.cancelDiscovery();
-        unregisterReceiver(receiver);
+        try {
+            unregisterReceiver(receiver);
+        }catch (IllegalArgumentException e){
+            System.out.println(e.toString());
+        }
     }
 
 
