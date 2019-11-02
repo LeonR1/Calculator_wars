@@ -21,8 +21,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -91,9 +94,9 @@ public class Streznik extends AppCompatActivity {
 
         jeStreznik=true;
 
-        TextView skipd=findViewById(R.id.skipsd);
-        TextView lived=findViewById(R.id.livesd);
-        TextView lengthd=findViewById(R.id.timed);
+        final TextView skipd=findViewById(R.id.skipsd);
+        final TextView lived=findViewById(R.id.livesd);
+        final TextView lengthd=findViewById(R.id.timed);
 
         skipd.setText(MainActivity.skips+"");
         lived.setText(MainActivity.lives+"");
@@ -108,6 +111,13 @@ public class Streznik extends AppCompatActivity {
                 TextView live=findViewById(R.id.lives);
                 TextView length=findViewById(R.id.time);
 
+                TextView def=findViewById(R.id.privz);
+                //def.setVisibility(View.INVISIBLE);
+                def.setText("Nastavljene vrednosti: ");
+                skip.setVisibility(View.INVISIBLE);
+                live.setVisibility(View.INVISIBLE);
+                length.setVisibility(View.INVISIBLE);
+
                 if(skip.getText().length()!=0){
                     MainActivity.skips=Integer.parseInt(skip.getText()+"");
                 }
@@ -117,6 +127,9 @@ public class Streznik extends AppCompatActivity {
                 if(length.getText().length()!=0){
                     MainActivity.trajanje=Integer.parseInt(length.getText()+"");
                 }
+                skipd.setText(MainActivity.skips+"");
+                lived.setText(MainActivity.lives+"");
+                lengthd.setText(MainActivity.trajanje+"");
                 final AcceptThread test=new AcceptThread();
                 Thread server=new Thread(new Runnable() {
                     @Override
@@ -125,6 +138,14 @@ public class Streznik extends AppCompatActivity {
                     }
                 });
                 server.start();
+
+                TextView cakam=findViewById(R.id.wait1);
+                TextView jst=findViewById(R.id.ta_naprava);
+                ProgressBar vrti=findViewById(R.id.progress);
+                cakam.setVisibility(View.VISIBLE);
+                vrti.setVisibility(View.VISIBLE);
+                jst.setVisibility(View.VISIBLE);
+                jst.setText("Ime naprave: "+Home.ime);
 
             }
         });

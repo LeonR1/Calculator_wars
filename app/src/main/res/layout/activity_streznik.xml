@@ -98,7 +98,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline28" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/privz"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Privzete vrednosti:"
@@ -147,4 +147,41 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/skips"
         app:layout_constraintTop_toTopOf="@+id/guideline28" />
+
+    <ProgressBar
+        android:id="@+id/progress"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toStartOf="@+id/guideline22"
+        app:layout_constraintStart_toStartOf="@+id/guideline18"
+        app:layout_constraintTop_toTopOf="@+id/guideline29"
+        tools:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/ta_naprava"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ime"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/guideline23"
+        app:layout_constraintEnd_toStartOf="@+id/guideline22"
+        app:layout_constraintStart_toStartOf="@+id/guideline18"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/wait1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:text="Čakam na povezavo"
+        android:textSize="18sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/guideline29"
+        app:layout_constraintEnd_toStartOf="@+id/guideline22"
+        app:layout_constraintStart_toStartOf="@+id/guideline18"
+        app:layout_constraintTop_toTopOf="@+id/guideline23"
+        tools:visibility="invisible" />
 </androidx.constraintlayout.widget.ConstraintLayout>
