@@ -147,6 +147,10 @@ public class Streznik extends AppCompatActivity {
                 jst.setVisibility(View.VISIBLE);
                 jst.setText("Ime naprave: "+Home.ime);
 
+                Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+                discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
+                startActivity(discoverableIntent);
+
             }
         });
         /*bluetoothAdapter=BluetoothAdapter.getDefaultAdapter();
@@ -170,9 +174,7 @@ public class Streznik extends AppCompatActivity {
             //nrdiSocket();
             //while(server_socket==null);
             //naredi strežnik viden drugim napravam
-            Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-            discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
-            startActivity(discoverableIntent);
+
 
 
 
@@ -254,7 +256,6 @@ public class Streznik extends AppCompatActivity {
         }
     }*/
     public static void povezano(BluetoothSocket socket){
-        System.out.println("oštijajjajajajaajajajajjaajjajajajajaj");
 
         MyBluetoothService blutuf=new MyBluetoothService();
         final MyBluetoothService.ConnectedThread povezava= blutuf.new ConnectedThread(socket);
