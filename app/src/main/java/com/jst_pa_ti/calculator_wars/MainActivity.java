@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import java.util.Random;
 
+import static com.jst_pa_ti.calculator_wars.Streznik.rezultati;
+
 public class MainActivity extends AppCompatActivity {
 
     public static int stRacunov;
@@ -18,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     public static TextView tvRacun, stRac, tvTime, tvLives;
     public static Button btns[] = new Button[12];
     public static String time;
-    public static int trajanje=180;
+    public static int trajanje=20;
     public Timer timer = new Timer(trajanje);
     public Thread thread = new Thread(timer);
     public Handler handler = new Handler();
@@ -173,8 +175,9 @@ public class MainActivity extends AppCompatActivity {
     public void finish() {
         startActivity(new Intent(MainActivity.this, Konec.class));
         if(Streznik.jeStreznik){
-            byte[] skip=(skips+"\n"+lives+"\n"+stRacunov+"\n"+Home.ime).getBytes();
-            Streznik.povezava_public.write(skip);
+            /*byte[] skip=(skips+"\n"+lives+"\n"+stRacunov+"\n"+Home.ime).getBytes();
+            Streznik.povezave_public[].write(skip);*/
+            rezultati.add(new Rezultat(Home.ime,lives+"",skips+"",stRacunov+""));
         }else{
             byte[] skip=(skips+"\n"+lives+"\n"+stRacunov+"\n"+Home.ime).getBytes();
             Odjemalec.povezava_public_o.write(skip);

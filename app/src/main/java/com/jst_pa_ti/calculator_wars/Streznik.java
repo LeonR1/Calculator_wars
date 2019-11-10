@@ -47,7 +47,11 @@ public class Streznik extends AppCompatActivity {
     BluetoothServerSocket server_socket;
     public static UUID nas_uuid=UUID.fromString("accf84f5-005f-477d-86e1-1b2254e88259");
     public static boolean jeStreznik;
-    public static MyBluetoothService.ConnectedThread povezava_public;
+    //public static MyBluetoothService.ConnectedThread povezava_public;
+    public static MyBluetoothService.ConnectedThread [] povezave_public=new MyBluetoothService.ConnectedThread[7];//maks št odjemalcev
+    public static int st_odjemalca=0; //stevilo odjemalcev
+    public static ArrayList<Rezultat> rezultati=new ArrayList<Rezultat>();  //tabela rezultatov za vse igralce
+
 
     public static void zacni(){
         Intent zacni=new Intent(mContext, MainActivity.class);
@@ -69,11 +73,15 @@ public class Streznik extends AppCompatActivity {
             //System.out.println(s);
             if(inputMessage.arg2==1){////arg2 =1 -> prenesemo rezultat
                 String [] tab=s.split("\n");
-                MainActivity.oskips=Integer.parseInt(tab[0]);
+                rezultati.add(new Rezultat(tab[3],tab[1],tab[0],tab[2]));
+                /*MainActivity.oskips=Integer.parseInt(tab[0]);
                 MainActivity.olives=Integer.parseInt(tab[1]);
                 MainActivity.ostRacunov=Integer.parseInt(tab[2]);
-                MainActivity.nasprotnik=tab[3];
-                MainActivity.prejel=true;
+                MainActivity.nasprotnik=tab[3];*/
+                if(rezultati.size()==st_odjemalca){
+                    MainActivity.prejel=true;
+                }
+                System.out.println("nekiniuredi");
             }/*if(inputMessage.arg2==-1){////arg2 =-1 -> prenesemo nastavitve igre
                 String [] tab=s.split("\n");
                 MainActivity.oskips=Integer.parseInt(tab[0]);
@@ -150,6 +158,7 @@ public class Streznik extends AppCompatActivity {
                 Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
                 discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
                 startActivity(discoverableIntent);
+
 
             }
         });
@@ -256,25 +265,25 @@ public class Streznik extends AppCompatActivity {
         }
     }*/
     public static void povezano(BluetoothSocket socket){
-
         MyBluetoothService blutuf=new MyBluetoothService();
         final MyBluetoothService.ConnectedThread povezava= blutuf.new ConnectedThread(socket);
         Thread poslusa=new Thread(new Runnable() {
             @Override
             public void run() {
-                povezava_public=povezava;
+                povezave_public[st_odjemalca]=povezava;
                 poslji_parametre();
+                st_odjemalca++;
                 povezava.run();
             }
         });
         poslusa.start();
-
     }
     public static void poslji_parametre(){
         byte[] neki=(seed+"\n"+MainActivity.skips+"\n"+MainActivity.lives+"\n"+MainActivity.trajanje).getBytes();
-        Streznik.povezava_public.write(neki);
+        Streznik.povezave_public[st_odjemalca].write(neki);
         zacni();
     }
+
 
        private class AcceptThread extends Thread {
                 private final BluetoothServerSocket mmServerSocket;
@@ -296,7 +305,6 @@ public class Streznik extends AppCompatActivity {
                     BluetoothSocket socket = null;
                     // Keep listening until exception occurs or a socket is returned.
                     while (true) {
-                        System.out.println("oštijaa");
                         try {
                             socket = mmServerSocket.accept();
                         } catch (IOException e) {
@@ -328,4 +336,31 @@ public class Streznik extends AppCompatActivity {
                 }
             }
 
+}
+class Rezultat{
+    private String ime,zivljenja,preskoki,racuni;
+
+    public Rezultat(String ime,String zivljenja,String preskoki,String racuni){
+        this.ime=ime;
+        this.zivljenja=zivljenja;
+        this.preskoki=preskoki;
+        this.racuni=racuni;
+    }
+
+    public String vrniIme(){
+        return ime;
+    }
+    public String vrniZivljenja(){
+        return zivljenja;
+    }
+    public String vrniPreskoke(){
+        return preskoki;
+    }
+    public String vrniRacune(){
+        return racuni;
+    }
+    @Override
+    public String toString(){
+        return ime+"\n"+"Zivljenja: "+zivljenja+"\n"+"Preskoki: "+preskoki+"\n"+"St. računov: "+racuni;
+    }
 }

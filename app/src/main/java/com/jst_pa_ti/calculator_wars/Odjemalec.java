@@ -30,7 +30,10 @@ import java.util.UUID;
 
 import static com.jst_pa_ti.calculator_wars.Home.bluetoothAdapter;
 import static com.jst_pa_ti.calculator_wars.Home.seed;
+import static com.jst_pa_ti.calculator_wars.Streznik.jeStreznik;
 import static com.jst_pa_ti.calculator_wars.Streznik.nas_uuid;
+import static com.jst_pa_ti.calculator_wars.Streznik.rezultati;
+import static com.jst_pa_ti.calculator_wars.Streznik.st_odjemalca;
 
 public class Odjemalec extends AppCompatActivity {
 
@@ -47,38 +50,47 @@ public class Odjemalec extends AppCompatActivity {
             //System.out.println(inputMessage.toString());
             //if(inputMessage.what==)
 
-            String s="";
-            byte [] neki=(byte[])inputMessage.obj;
-            //arg1 je število bajtov
-            for(int i=0; i<inputMessage.arg1; i++){
-                s=s+((char)neki[i])+"";
-            }
-            //System.out.println(s);
-            if(inputMessage.arg2==0){
+                String s = "";
+                byte[] neki = (byte[]) inputMessage.obj;
+                //arg1 je število bajtov
+                for (int i = 0; i < inputMessage.arg1; i++) {
+                    s = s + ((char) neki[i]) + "";
+                }
+                //System.out.println(s);
+                if (inputMessage.arg2 == 0) {
                 /*ime.setText(s);
                 seed=Integer.parseInt(s);*/
-                String [] tab=s.split("\n");
-                seed=Integer.parseInt(tab[0]);
-                System.out.println(tab[1]+" "+tab[2]+" "+tab[3]);
-                MainActivity.skips=Integer.parseInt(tab[1]);
-                MainActivity.lives=Integer.parseInt(tab[2]);
-                MainActivity.trajanje=Integer.parseInt(tab[3]);
-                zacni();
-            }else if(inputMessage.arg2==1){//arg2 =1 -> prenesemo rezultat
-                String [] tab=s.split("\n");
-                MainActivity.oskips=Integer.parseInt(tab[0]);
-                MainActivity.olives=Integer.parseInt(tab[1]);
-                MainActivity.ostRacunov=Integer.parseInt(tab[2]);
-                MainActivity.nasprotnik=tab[3];
-                MainActivity.prejel=true;
-            }/*if(inputMessage.arg2==-1){////arg2 =-1 -> prenesemo nastavitve igre
+                    String[] tab = s.split("\n");
+                    seed = Integer.parseInt(tab[0]);
+                    System.out.println(tab[1] + " " + tab[2] + " " + tab[3]);
+                    MainActivity.skips = Integer.parseInt(tab[1]);
+                    MainActivity.lives = Integer.parseInt(tab[2]);
+                    MainActivity.trajanje = Integer.parseInt(tab[3]);
+                    zacni();
+                } else if (inputMessage.arg2 == 1) {//arg2 =1 -> prenesemo rezultat
+                    String[] tab = s.split("\n");
+
+                    rezultati.add(new Rezultat(tab[3],tab[1],tab[0],tab[2]));
+
+                    if(rezultati.size()==st_odjemalca){
+                        MainActivity.prejel=true;
+                    }
+                    System.out.println("nekiniuredi");
+
+                    MainActivity.oskips = Integer.parseInt(tab[0]);
+                    MainActivity.olives = Integer.parseInt(tab[1]);
+                    MainActivity.ostRacunov = Integer.parseInt(tab[2]);
+                    MainActivity.nasprotnik = tab[3];
+                    MainActivity.prejel = true;
+                }/*if(inputMessage.arg2==-1){////arg2 =-1 -> prenesemo nastavitve igre
                 String [] tab=s.split("\n");
                 MainActivity.skips=Integer.parseInt(tab[0]);
                 MainActivity.lives=Integer.parseInt(tab[1]);
                 MainActivity.trajanje=Integer.parseInt(tab[2]);
                 //MainActivity.prejel=true;
             }*/
-        }
+            }
+
     };
 public static void zacni(){
     Intent zacni=new Intent(mContext, MainActivity.class);
@@ -123,9 +135,9 @@ public static void zacni(){
             //nrdiSocket();
             //while(server_socket==null);
             //naredi strežnik viden drugim napravam
-            Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+           /* Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
             discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
-            startActivity(discoverableIntent);
+            startActivity(discoverableIntent);*/
 
 
 

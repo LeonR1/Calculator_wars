@@ -2,21 +2,33 @@ package com.jst_pa_ti.calculator_wars;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class Konec extends AppCompatActivity {
 
-     static TextView my_score;
-     static TextView opponent_score;
-     static TextView me_text;
-     static TextView opponent_text;
+    private static TextView my_score;
+    private static TextView opponent_score;
+    private static TextView me_text;
+    private static TextView opponent_text;
+    private static ListView seznam_rezultatov;
+    //private static ArrayList<Rezultat> list=new ArrayList<Rezultat>();
+    private static Context tole;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_konec);
 
+        tole=this;
+
+        seznam_rezultatov=findViewById(R.id.seznamcek);
         my_score=findViewById(R.id.my_score);
         opponent_score=findViewById(R.id.opponent_score);
         me_text=findViewById(R.id.me);
@@ -49,5 +61,10 @@ public class Konec extends AppCompatActivity {
         String os=String.format("Zivljenja: %s \n skipi: %s \n racuni: %s",MainActivity.olives,MainActivity.oskips,MainActivity.ostRacunov);
         opponent_score.setText(os);
         opponent_text.setText(MainActivity.nasprotnik);
+        if(Streznik.jeStreznik) {
+            //Streznik.rezultati.addAll(Streznik.rezultati);
+            seznam_rezultatov.setAdapter(new ArrayAdapter<Rezultat>(tole, android.R.layout.simple_list_item_1, Streznik.rezultati));
+
+        }
     }
 }
