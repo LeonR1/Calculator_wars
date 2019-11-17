@@ -51,9 +51,25 @@ public class Streznik extends AppCompatActivity {
     public static MyBluetoothService.ConnectedThread [] povezave_public=new MyBluetoothService.ConnectedThread[7];//maks št odjemalcev
     public static int st_odjemalca=0; //stevilo odjemalcev
     public static ArrayList<Rezultat> rezultati=new ArrayList<Rezultat>();  //tabela rezultatov za vse igralce
+    public static ListView povezani;
+    static Button start;
 
 
     public static void zacni(){
+
+        MainActivity.stanje=2;
+
+        for(int i=0; i<povezave_public.length; i++){
+            if(povezave_public[i]==null){
+                break;
+            }
+            povezave_public[i].write("ola".getBytes());
+        }
+        //naredi strežnik neviden
+        Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+        discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 1);
+        mContext.startActivity(discoverableIntent);
+
         Intent zacni=new Intent(mContext, MainActivity.class);
         mContext.startActivity(zacni);
     }
@@ -101,16 +117,19 @@ public class Streznik extends AppCompatActivity {
        // seznam_naprav=findViewById(R.id.list);
 
         jeStreznik=true;
+        start=findViewById(R.id.start);
 
         final TextView skipd=findViewById(R.id.skipsd);
         final TextView lived=findViewById(R.id.livesd);
         final TextView lengthd=findViewById(R.id.timed);
 
+        povezani=findViewById(R.id.povezani);
+
         skipd.setText(MainActivity.skips+"");
         lived.setText(MainActivity.lives+"");
         lengthd.setText(MainActivity.trajanje+"");
 
-        Button ok= findViewById(R.id.enter);
+        final Button ok= findViewById(R.id.enter);
 
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,8 +177,17 @@ public class Streznik extends AppCompatActivity {
                 Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
                 discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
                 startActivity(discoverableIntent);
+                ok.setVisibility(View.INVISIBLE);
 
 
+            }
+        });
+
+        Button start=findViewById(R.id.start);
+        start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                zacni();
             }
         });
         /*bluetoothAdapter=BluetoothAdapter.getDefaultAdapter();
@@ -217,7 +245,7 @@ public class Streznik extends AppCompatActivity {
                 //naprave.add(deviceName+ "\n" + device.getAddress());
                 naprave.add(new Naprava(deviceName,deviceHardwareAddress));
                 System.out.println(deviceName);
-                //seznam_naprav.setAdapter(new ArrayAdapter<Naprava>(context,android.R.layout.simple_list_item_1,naprave));
+
             }
         }
     };
@@ -238,23 +266,7 @@ public class Streznik extends AppCompatActivity {
 
 
 
-    private class Naprava{
-        private String ime,mac;
 
-        public Naprava(String ime,String mac){
-            this.ime=ime;
-            this.mac=mac;
-        }
-        public String vrniIme(){
-            return ime;
-        }
-        public String vrniMac(){
-            return mac;
-        }
-        public String toString(){
-            return ime+"\n"+mac;
-        }
-    }
 
     /*public void nrdiSocket(){
         try {
@@ -264,24 +276,37 @@ public class Streznik extends AppCompatActivity {
             e.printStackTrace();
         }
     }*/
-    public static void povezano(BluetoothSocket socket){
+    public static void povezano(final BluetoothSocket socket){
         MyBluetoothService blutuf=new MyBluetoothService();
         final MyBluetoothService.ConnectedThread povezava= blutuf.new ConnectedThread(socket);
         Thread poslusa=new Thread(new Runnable() {
             @Override
             public void run() {
                 povezave_public[st_odjemalca]=povezava;
-                poslji_parametre();
-                st_odjemalca++;
+                int pred=naprave.size();
+                naprave.add(new Naprava(socket.getRemoteDevice().getName(),socket.getRemoteDevice().getAddress()));
+                if(pred<naprave.size()) {
+                    poslji_parametre();
+                    st_odjemalca++;
+                }
                 povezava.run();
             }
         });
         poslusa.start();
+
+        ((Streznik)mContext).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                povezani.setAdapter(new ArrayAdapter<Naprava>(mContext,android.R.layout.simple_list_item_1,naprave));
+                start.setVisibility(View.VISIBLE);
+            }
+        });
+
     }
     public static void poslji_parametre(){
         byte[] neki=(seed+"\n"+MainActivity.skips+"\n"+MainActivity.lives+"\n"+MainActivity.trajanje).getBytes();
         Streznik.povezave_public[st_odjemalca].write(neki);
-        zacni();
+        //zacni();
     }
 
 
@@ -362,5 +387,30 @@ class Rezultat{
     @Override
     public String toString(){
         return ime+"\n"+"Zivljenja: "+zivljenja+"\n"+"Preskoki: "+preskoki+"\n"+"St. računov: "+racuni;
+    }
+}
+class Naprava{
+    private String ime,mac;
+
+    public Naprava(String ime,String mac){
+        this.ime=ime;
+        this.mac=mac;
+    }
+    public String vrniIme(){
+        return ime;
+    }
+    public String vrniMac(){
+        return mac;
+    }
+    public String toString(){
+        return ime+"\n"+mac;
+    }
+    @Override
+    public boolean equals(Object o){
+        Naprava neki=(Naprava)o;
+       if(neki.vrniMac().equals(this.vrniMac())){
+           return true;
+       }
+       return false;
     }
 }

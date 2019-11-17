@@ -66,7 +66,8 @@ public class Odjemalec extends AppCompatActivity {
                     MainActivity.skips = Integer.parseInt(tab[1]);
                     MainActivity.lives = Integer.parseInt(tab[2]);
                     MainActivity.trajanje = Integer.parseInt(tab[3]);
-                    zacni();
+                    MainActivity.stanje=2;
+                    //zacni();
                 } else if (inputMessage.arg2 == 1) {//arg2 =1 -> prenesemo rezultat
                     String[] tab = s.split("\n");
 
@@ -82,13 +83,11 @@ public class Odjemalec extends AppCompatActivity {
                     MainActivity.ostRacunov = Integer.parseInt(tab[2]);
                     MainActivity.nasprotnik = tab[3];
                     MainActivity.prejel = true;
-                }/*if(inputMessage.arg2==-1){////arg2 =-1 -> prenesemo nastavitve igre
-                String [] tab=s.split("\n");
-                MainActivity.skips=Integer.parseInt(tab[0]);
-                MainActivity.lives=Integer.parseInt(tab[1]);
-                MainActivity.trajanje=Integer.parseInt(tab[2]);
-                //MainActivity.prejel=true;
-            }*/
+                }if(inputMessage.arg2==2){////arg2 =2 -> zacnemo igro
+                    zacni();
+                    //MainActivity.prejel=true;
+                }
+
             }
 
     };

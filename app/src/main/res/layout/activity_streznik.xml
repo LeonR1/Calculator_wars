@@ -53,10 +53,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Potrdi"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline22"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="@+id/guideline18"
-        app:layout_constraintTop_toBottomOf="@+id/skips" />
+        app:layout_constraintTop_toBottomOf="@+id/progress" />
 
     <EditText
         android:id="@+id/lives"
@@ -183,5 +183,42 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline22"
         app:layout_constraintStart_toStartOf="@+id/guideline18"
         app:layout_constraintTop_toTopOf="@+id/guideline23"
+        tools:visibility="invisible" />
+
+    <ListView
+        android:id="@+id/povezani"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline32"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline31"
+        app:layout_constraintTop_toBottomOf="@+id/enter"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline31"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.10" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <Button
+        android:id="@+id/start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Zacni"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/enter"
+        app:layout_constraintEnd_toStartOf="@+id/guideline22"
+        app:layout_constraintStart_toStartOf="@+id/guideline18"
+        app:layout_constraintTop_toBottomOf="@+id/progress"
         tools:visibility="invisible" />
 </androidx.constraintlayout.widget.ConstraintLayout>
