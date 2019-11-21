@@ -8,4 +8,5 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorKeyboard">#969696</color>
     <color name="background">#cfcfcf</color>
+    <color name="colorButton">#7e7e7e</color>
 </resources>

@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         tvRacun.setText(racunGenerator.getGenRacun());
         stRac = findViewById(R.id.stRacunov);
-        stRac.setText("Št. Pravilnih Računov: " + stRacunov);
+        stRac.setText("Correct solutions: " + stRacunov);
         tvTime = findViewById(R.id.timer);
         tvLives = findViewById(R.id.lives);
         tvLives.setText("Lives: "+lives);

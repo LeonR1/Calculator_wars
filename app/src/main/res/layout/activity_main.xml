@@ -212,7 +212,7 @@
         android:layout_height="0dp"
         android:autoSizeTextType="uniform"
         android:gravity="center"
-        android:text="Št. Pravilnih Računov:"
+        android:text="Correct solutions:"
         android:textColor="@color/colorWhite"
         app:layout_constraintBottom_toTopOf="@+id/guideline19"
         app:layout_constraintEnd_toStartOf="@+id/guideline21"
