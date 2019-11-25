@@ -294,6 +294,16 @@ public class Streznik extends AppCompatActivity {
         });
         poslusa.start();
 
+
+        Thread server=new Thread(new Runnable() {
+            @Override
+            public void run() {
+                AcceptThread test=new AcceptThread();
+                test.run();
+            }
+        });
+        server.start();
+
         ((Streznik)mContext).runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -310,7 +320,7 @@ public class Streznik extends AppCompatActivity {
     }
 
 
-       private class AcceptThread extends Thread {
+       private static class AcceptThread extends Thread {
                 private final BluetoothServerSocket mmServerSocket;
 
                 public AcceptThread() {
