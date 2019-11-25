@@ -398,6 +398,9 @@ class Rezultat{
     public String toString(){
         return ime+"\n"+"Zivljenja: "+zivljenja+"\n"+"Preskoki: "+preskoki+"\n"+"St. računov: "+racuni;
     }
+    public String toStringPro(){
+        return ime+"%#%"+zivljenja+"%#%"+preskoki+"%#%"+racuni;
+    }
 }
 class Naprava{
     private String ime,mac;

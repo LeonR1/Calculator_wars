@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import static com.jst_pa_ti.calculator_wars.Streznik.povezave_public;
+
 public class Konec extends AppCompatActivity {
 
     private static TextView my_score;
@@ -65,6 +67,23 @@ public class Konec extends AppCompatActivity {
             //Streznik.rezultati.addAll(Streznik.rezultati);
             seznam_rezultatov.setAdapter(new ArrayAdapter<Rezultat>(tole, android.R.layout.simple_list_item_1, Streznik.rezultati));
 
+            //poslji score
+            String s="";
+            for(int i=0; i<Streznik.rezultati.size(); i++){
+                s=s+"\n"+Streznik.rezultati.get(i).toStringPro();
+            }
+
+            MainActivity.stanje=3;
+
+            byte[] skip=(s).getBytes();
+            for(int i=0; i<povezave_public.length; i++){
+                if(povezave_public[i]==null){
+                    break;
+                }
+                povezave_public[i].write(skip);
+            }
+        }else{
+            seznam_rezultatov.setAdapter(new ArrayAdapter<Rezultat>(tole, android.R.layout.simple_list_item_1, Streznik.rezultati));
         }
     }
 }

@@ -87,6 +87,18 @@ public class Odjemalec extends AppCompatActivity {
                     zacni();
                     //MainActivity.prejel=true;
                 }
+                if(inputMessage.arg2==3){
+                    String[] tab = s.split("\n");
+                    for(int i=0; i<tab.length; i++){
+                        String tab1[]=tab[i].split("%#%");
+                        if(tab1[0]==""){
+                            continue;
+                        }
+                        //System.out.println(tab1[0]+" "+tab1[1]+" "+tab1[2]+" "+tab1[3]);
+                        rezultati.add(new Rezultat(tab1[0],tab1[1],tab1[2],tab1[3]));
+                        MainActivity.prejel = true;
+                    }
+                }
 
             }
 

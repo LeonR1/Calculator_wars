@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     public Thread thread = new Thread(timer);
     public Handler handler = new Handler();
     public static int lives =3, skips=3;
-    public static int stanje=0;//  0= igra se še ni začela  1=igra se je končala
+    public static int stanje=0;//  0= igra se še ni začela  1=igra se je končala 3-prejmemo rezultate od strežnika
     public static int olives,oskips,ostRacunov; //nasprotnikov rezultat
     public static boolean prejel=false; //rata true ko prejmemo rezultat nasprotnika
     public static String nasprotnik; //ime nasprotnika
@@ -178,9 +178,11 @@ public class MainActivity extends AppCompatActivity {
             /*byte[] skip=(skips+"\n"+lives+"\n"+stRacunov+"\n"+Home.ime).getBytes();
             Streznik.povezave_public[].write(skip);*/
             rezultati.add(new Rezultat(Home.ime,lives+"",skips+"",stRacunov+""));
+
         }else{
             byte[] skip=(skips+"\n"+lives+"\n"+stRacunov+"\n"+Home.ime).getBytes();
             Odjemalec.povezava_public_o.write(skip);
+            stanje=3;
         }
     }
 
