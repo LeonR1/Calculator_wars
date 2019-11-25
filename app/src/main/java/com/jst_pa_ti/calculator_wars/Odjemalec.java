@@ -91,7 +91,7 @@ public class Odjemalec extends AppCompatActivity {
                     String[] tab = s.split("\n");
                     for(int i=0; i<tab.length; i++){
                         String tab1[]=tab[i].split("%#%");
-                        if(tab1[0]==""){
+                        if(tab1[0].equals("")){
                             continue;
                         }
                         //System.out.println(tab1[0]+" "+tab1[1]+" "+tab1[2]+" "+tab1[3]);
