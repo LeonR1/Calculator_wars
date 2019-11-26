@@ -257,6 +257,7 @@ public class Streznik extends AppCompatActivity {
 
         // Don't forget to unregister the ACTION_FOUND receiver.
         bluetoothAdapter.cancelDiscovery();
+        //bluetoothAdapter.disable();
         try {
             unregisterReceiver(receiver);
         }catch (IllegalArgumentException e){

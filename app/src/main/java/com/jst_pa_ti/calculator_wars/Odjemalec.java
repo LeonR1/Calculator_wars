@@ -57,6 +57,7 @@ public class Odjemalec extends AppCompatActivity {
                     s = s + ((char) neki[i]) + "";
                 }
                 //System.out.println(s);
+            if(true){
                 if (inputMessage.arg2 == 0) {
                 /*ime.setText(s);
                 seed=Integer.parseInt(s);*/
@@ -94,13 +95,19 @@ public class Odjemalec extends AppCompatActivity {
                         if(tab1[0].equals("")){
                             continue;
                         }
-                        //System.out.println(tab1[0]+" "+tab1[1]+" "+tab1[2]+" "+tab1[3]);
+                        System.out.println("i:"+i);
+                        System.out.println(tab[0]);
+                        System.out.println(tab[1]);
+                        System.out.println(tab[2]);
+                        System.out.println(tab1[0]+" "+tab1[1]+" "+tab1[2]+" "+tab1[3]);
+                        //System.out.println(tab[0]);
                         rezultati.add(new Rezultat(tab1[0],tab1[1],tab1[2],tab1[3]));
                         MainActivity.prejel = true;
                     }
                 }
 
             }
+        }
 
     };
 public static void zacni(){
@@ -288,6 +295,7 @@ public static void zacni(){
 
         // Don't forget to unregister the ACTION_FOUND receiver.
         bluetoothAdapter.cancelDiscovery();
+        //bluetoothAdapter.disable();
         unregisterReceiver(receiver);
     }
     public class Naprava{
