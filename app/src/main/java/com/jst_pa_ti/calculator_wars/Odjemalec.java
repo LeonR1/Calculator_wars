@@ -83,7 +83,10 @@ public class Odjemalec extends AppCompatActivity {
                     MainActivity.olives = Integer.parseInt(tab[1]);
                     MainActivity.ostRacunov = Integer.parseInt(tab[2]);
                     MainActivity.nasprotnik = tab[3];
-                    MainActivity.prejel = true;
+                    if(rezultati.size()==st_odjemalca+1){
+                        MainActivity.prejel=true;
+                    }
+                    //MainActivity.prejel = true;
                 }if(inputMessage.arg2==2){////arg2 =2 -> zacnemo igro
                     zacni();
                     //MainActivity.prejel=true;
@@ -130,36 +133,10 @@ public static void zacni(){
 
         ime=findViewById(R.id.textView);
         seznam_naprav = findViewById(R.id.list);
-        //seznam_naprav.setAdapter(new ArrayAdapter<Odjemalec.Naprava>(this,android.R.layout.simple_list_item_1,naprave));
 
-       /* bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-
-        if (bluetoothAdapter == null) {
-            // Intent intent = new Intent(Streznik.this, Home.class);
-            // intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            Toast.makeText(getApplicationContext(), "Naprava ne podpira Bluetooth povezave. :(", Toast.LENGTH_LONG).show();
-
-            //startActivity(intent);
-
-        } else {
-            if (!bluetoothAdapter.isEnabled()) {
-                Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-            }
-            //while(bluetoothAdapter==null);*/
             bluetoothAdapter.startDiscovery();
             System.out.println("zčnu");
 
-            //nrdiSocket();
-            //while(server_socket==null);
-            //naredi strežnik viden drugim napravam
-           /* Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-            discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
-            startActivity(discoverableIntent);*/
-
-
-
-        //}
         IntentFilter najden = new IntentFilter(BluetoothDevice.ACTION_FOUND);
         registerReceiver(receiver, najden);
         System.out.println("doba");

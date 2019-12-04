@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     public static TextView tvRacun, stRac, tvTime, tvLives;
     public static Button btns[] = new Button[12];
     public static String time;
-    public static int trajanje=20;
+    public static int trajanje=10;
     public Timer timer = new Timer(trajanje);
     public Thread thread = new Thread(timer);
     public Handler handler = new Handler();

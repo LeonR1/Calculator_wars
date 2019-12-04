@@ -94,9 +94,9 @@ public class Streznik extends AppCompatActivity {
                 MainActivity.olives=Integer.parseInt(tab[1]);
                 MainActivity.ostRacunov=Integer.parseInt(tab[2]);
                 MainActivity.nasprotnik=tab[3];*/
-                if(rezultati.size()==st_odjemalca){
+                /*if(rezultati.size()==st_odjemalca){
                     MainActivity.prejel=true;
-                }
+                }*/
                 System.out.println("nekiniuredi");
             }/*if(inputMessage.arg2==-1){////arg2 =-1 -> prenesemo nastavitve igre
                 String [] tab=s.split("\n");
@@ -190,46 +190,7 @@ public class Streznik extends AppCompatActivity {
                 zacni();
             }
         });
-        /*bluetoothAdapter=BluetoothAdapter.getDefaultAdapter();
 
-        if (bluetoothAdapter == null) {
-           // Intent intent = new Intent(Streznik.this, Home.class);
-           // intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            Toast.makeText(getApplicationContext(), "Naprava ne podpira Bluetooth povezave. :(", Toast.LENGTH_LONG).show();
-
-            //startActivity(intent);
-
-        }else {
-            if (!bluetoothAdapter.isEnabled()) {
-                Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-            }
-            //while(bluetoothAdapter==null);*/
-            /*bluetoothAdapter.startDiscovery();
-            System.out.println("zčnu");*/
-
-            //nrdiSocket();
-            //while(server_socket==null);
-            //naredi strežnik viden drugim napravam
-
-
-
-
-
-        //}
-        // Create a BroadcastReceiver for ACTION_FOUND.
-        /*IntentFilter najden = new IntentFilter(BluetoothDevice.ACTION_FOUND);
-        registerReceiver(receiver, najden);
-        System.out.println("doba");*/
-
-        /*seznam_naprav.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //System.out.println(parent.getItemAtPosition(position).toString());
-
-
-            }
-        });*/
 
     }
 
