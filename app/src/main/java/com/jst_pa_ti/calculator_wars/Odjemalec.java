@@ -74,24 +74,21 @@ public class Odjemalec extends AppCompatActivity {
 
                     rezultati.add(new Rezultat(tab[3],tab[1],tab[0],tab[2]));
 
-                    if(rezultati.size()==st_odjemalca){
+                    if(rezultati.size()==st_odjemalca+1){
                         MainActivity.prejel=true;
                     }
-                    System.out.println("nekiniuredi");
 
                     MainActivity.oskips = Integer.parseInt(tab[0]);
                     MainActivity.olives = Integer.parseInt(tab[1]);
                     MainActivity.ostRacunov = Integer.parseInt(tab[2]);
                     MainActivity.nasprotnik = tab[3];
-                    if(rezultati.size()==st_odjemalca+1){
-                        MainActivity.prejel=true;
-                    }
+
                     //MainActivity.prejel = true;
                 }if(inputMessage.arg2==2){////arg2 =2 -> zacnemo igro
                     zacni();
                     //MainActivity.prejel=true;
                 }
-                if(inputMessage.arg2==3){
+                if(inputMessage.arg2==3&&!jeStreznik){
                     String[] tab = s.split("\n");
                     for(int i=0; i<tab.length; i++){
                         String tab1[]=tab[i].split("%#%");
@@ -102,6 +99,7 @@ public class Odjemalec extends AppCompatActivity {
                         System.out.println(tab[0]);
                         System.out.println(tab[1]);
                         System.out.println(tab[2]);
+                        System.out.println(tab1[0]);
                         System.out.println(tab1[0]+" "+tab1[1]+" "+tab1[2]+" "+tab1[3]);
                         //System.out.println(tab[0]);
                         rezultati.add(new Rezultat(tab1[0],tab1[1],tab1[2],tab1[3]));
