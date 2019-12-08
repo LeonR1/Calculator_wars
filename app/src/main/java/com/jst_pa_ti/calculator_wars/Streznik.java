@@ -116,6 +116,11 @@ public class Streznik extends AppCompatActivity {
        // seznam_naprav=findViewById(R.id.list);
 
         jeStreznik=true;
+        MainActivity.stanje=0;
+        naprave.clear();
+        st_odjemalca=0;
+        rezultati.clear();
+
         start=findViewById(R.id.start);
 
         final TextView skipd=findViewById(R.id.skipsd);
@@ -251,6 +256,14 @@ public class Streznik extends AppCompatActivity {
                 povezave_public[st_odjemalca]=povezava;
                 int pred=naprave.size();
                 naprave.add(new Naprava(socket.getRemoteDevice().getName(),socket.getRemoteDevice().getAddress()));
+
+                ((Streznik)mContext).runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {//za vsak slučaj da refresha
+                        povezani.setAdapter(new ArrayAdapter<Naprava>(mContext,android.R.layout.simple_list_item_1,naprave));
+                    }
+                });
+
                 if(pred<naprave.size()) {
                     poslji_parametre();
                     st_odjemalca++;

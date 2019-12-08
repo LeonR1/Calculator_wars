@@ -19,6 +19,9 @@ import com.bumptech.glide.Glide;
 
 import java.util.Random;
 
+import static com.jst_pa_ti.calculator_wars.MainActivity.prejel;
+import static com.jst_pa_ti.calculator_wars.Streznik.rezultati;
+
 public class Home extends AppCompatActivity {
 
     public static BluetoothAdapter bluetoothAdapter;
@@ -30,6 +33,8 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        rezultati.clear();
+        prejel=false;
 
         Random seedGen = new Random();
         seed = seedGen.nextInt();

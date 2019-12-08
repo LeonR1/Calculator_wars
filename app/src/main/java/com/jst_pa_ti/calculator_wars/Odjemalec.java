@@ -125,6 +125,11 @@ public static void zacni(){
         setContentView(R.layout.activity_odjemalec);
 
         mContext=this;
+        jeStreznik=false;
+        MainActivity.stanje=0;
+        naprave.clear();
+        rezultati.clear();
+        st_odjemalca=0;
 
         Handler sporocila = new Handler(Looper.getMainLooper()) {
             @Override
