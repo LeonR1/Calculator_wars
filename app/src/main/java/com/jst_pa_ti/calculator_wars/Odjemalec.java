@@ -2,7 +2,6 @@ package com.jst_pa_ti.calculator_wars;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.BroadcastReceiver;
@@ -18,15 +17,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.UUID;
 
 import static com.jst_pa_ti.calculator_wars.Home.bluetoothAdapter;
 import static com.jst_pa_ti.calculator_wars.Home.seed;
@@ -68,6 +64,14 @@ public class Odjemalec extends AppCompatActivity {
                     MainActivity.lives = Integer.parseInt(tab[2]);
                     MainActivity.trajanje = Integer.parseInt(tab[3]);
                     MainActivity.stanje=2;
+
+                    ((Odjemalec)mContext).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ime.setVisibility(View.VISIBLE);
+                        }
+                    });
+
                     //zacni();
                 } else if (inputMessage.arg2 == 1) {//arg2 =1 -> prenesemo rezultat
                     String[] tab = s.split("\n");
@@ -129,40 +133,44 @@ public static void zacni(){
             }
         };
 
-        ime=findViewById(R.id.textView);
+        ime=findViewById(R.id.povezan);
         seznam_naprav = findViewById(R.id.list);
 
-            bluetoothAdapter.startDiscovery();
-            System.out.println("zčnu");
+        bluetoothAdapter.startDiscovery();
 
         IntentFilter najden = new IntentFilter(BluetoothDevice.ACTION_FOUND);
         registerReceiver(receiver, najden);
-        System.out.println("doba");
 
         seznam_naprav.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-               // System.out.println(parent.getItemAtPosition(position).toString().split("\n")[1]);
-                //BluetoothDevice oo=
 
-                BluetoothDevice naprava=bluetoothAdapter.getRemoteDevice(parent.getItemAtPosition(position).toString().split("\n")[1]);
-                ParcelUuid list[] = naprava.getUuids();
-                final Odjemalec.ConnectThread test=new Odjemalec.ConnectThread(naprava);
-                Thread server=new Thread(new Runnable() {
+        BluetoothDevice naprava=bluetoothAdapter.getRemoteDevice(parent.getItemAtPosition(position).toString().split("\n")[1]);
+        ParcelUuid list[] = naprava.getUuids();
+        final Odjemalec.ConnectThread test=new Odjemalec.ConnectThread(naprava);
+        Thread server=new Thread(new Runnable() {
                     @Override
                     public void run() {
                         test.run();
                     }
                 });
-                server.start();
+        server.start();
 
+        Button refresh=findViewById(R.id.refresh);
+        refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bluetoothAdapter.startDiscovery();
+                naprave.clear();
+                seznam_naprav.setAdapter(null);
+            }
+        });
 
             }
         });
     }
     public static void povezano(BluetoothSocket mmSocket){
 
-        System.out.println("Neki bo še iz tega");
         MyBluetoothService blutuf=new MyBluetoothService();
         final MyBluetoothService.ConnectedThread povezava= blutuf.new ConnectedThread(mmSocket);
         Thread poslusa=new Thread(new Runnable() {
@@ -174,6 +182,8 @@ public static void zacni(){
             }
         });
         poslusa.start();
+
+
        // seed_demo.setText();
     }
     private class ConnectThread extends Thread {
