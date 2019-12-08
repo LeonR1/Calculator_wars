@@ -97,7 +97,6 @@ public class Streznik extends AppCompatActivity {
                 /*if(rezultati.size()==st_odjemalca){
                     MainActivity.prejel=true;
                 }*/
-                System.out.println("nekiniuredi");
             }/*if(inputMessage.arg2==-1){////arg2 =-1 -> prenesemo nastavitve igre
                 String [] tab=s.split("\n");
                 MainActivity.oskips=Integer.parseInt(tab[0]);
@@ -226,6 +225,11 @@ public class Streznik extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent zacni=new Intent(this, Home.class);
+        this.startActivity(zacni);
+    }
 
 
 

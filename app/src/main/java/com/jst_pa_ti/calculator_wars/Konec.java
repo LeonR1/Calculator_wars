@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -41,7 +42,7 @@ public class Konec extends AppCompatActivity {
         Thread rezultati=new Thread(new Runnable() {
             @Override
             public void run() {
-                while(!MainActivity.prejel){
+                while(!MainActivity.prejel&&Streznik.rezultati.size()!=Streznik.st_odjemalca+1){
                     try {
                         Thread.sleep(400);
                     } catch (InterruptedException e) {
@@ -85,5 +86,11 @@ public class Konec extends AppCompatActivity {
         }else{
             seznam_rezultatov.setAdapter(new ArrayAdapter<Rezultat>(tole, android.R.layout.simple_list_item_1, Streznik.rezultati));
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent zacni=new Intent(this, Home.class);
+        this.startActivity(zacni);
     }
 }

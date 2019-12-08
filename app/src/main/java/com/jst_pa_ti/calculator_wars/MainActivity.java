@@ -91,7 +91,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         else {
 
-                            lives--;
+                            if(lives>0)
+                                lives--;
                             tvLives.setText("Lives: " + lives);
 
                         }
@@ -129,10 +130,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 tvRacun.setText(racunGenerator.getGenRacun());
-                skips--;
+                if(skips>0)
+                    skips--;
                 btnSkip.setText("Skip: " + skips);
 
-                if (skips == 0) {
+                if (skips <= 0) {
 
                     btnSkip.setEnabled(false);
 
@@ -218,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
 
             for (int i = sekund; i >= 0; i--) {
 
-                if (lives == 0) {
+                if (lives <= 0) {
 
                     finish();
                     return;

@@ -283,6 +283,11 @@ public static void zacni(){
         //bluetoothAdapter.disable();
         unregisterReceiver(receiver);
     }
+    @Override
+    public void onBackPressed() {
+        Intent zacni=new Intent(this, Home.class);
+        this.startActivity(zacni);
+    }
     public class Naprava{
         private String ime,mac;
 
