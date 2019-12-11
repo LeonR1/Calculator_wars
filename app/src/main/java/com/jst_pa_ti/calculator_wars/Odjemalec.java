@@ -43,8 +43,6 @@ public class Odjemalec extends AppCompatActivity {
     public static Handler sporocila = new Handler(Looper.getMainLooper()) {
         @Override
         public void handleMessage(Message inputMessage) {
-            //System.out.println(inputMessage.toString());
-            //if(inputMessage.what==)
 
                 String s = "";
                 byte[] neki = (byte[]) inputMessage.obj;
@@ -292,6 +290,7 @@ public static void zacni(){
     public void onBackPressed() {
         Intent zacni=new Intent(this, Home.class);
         this.startActivity(zacni);
+        finish();
     }
     public class Naprava{
         private String ime,mac;

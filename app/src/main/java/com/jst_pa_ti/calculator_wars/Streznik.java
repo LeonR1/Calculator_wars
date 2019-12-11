@@ -234,6 +234,7 @@ public class Streznik extends AppCompatActivity {
     public void onBackPressed() {
         Intent zacni=new Intent(this, Home.class);
         this.startActivity(zacni);
+        finish();
     }
 
 

@@ -36,6 +36,8 @@ public class Home extends AppCompatActivity {
         rezultati.clear();
         prejel=false;
 
+
+
         Random seedGen = new Random();
         seed = seedGen.nextInt();
 
