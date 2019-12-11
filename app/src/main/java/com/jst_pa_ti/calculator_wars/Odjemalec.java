@@ -97,12 +97,6 @@ public class Odjemalec extends AppCompatActivity {
                         if(tab1[0].equals("")){
                             continue;
                         }
-                        System.out.println("i:"+i);
-                        System.out.println(tab[0]);
-                        System.out.println(tab[1]);
-                        System.out.println(tab[2]);
-                        System.out.println(tab1[0]);
-                        System.out.println(tab1[0]+" "+tab1[1]+" "+tab1[2]+" "+tab1[3]);
                         //System.out.println(tab[0]);
                         rezultati.add(new Rezultat(tab1[0],tab1[1],tab1[2],tab1[3]));
                         MainActivity.prejel = true;

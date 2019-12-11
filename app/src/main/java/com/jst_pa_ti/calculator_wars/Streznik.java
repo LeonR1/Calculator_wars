@@ -77,8 +77,6 @@ public class Streznik extends AppCompatActivity {
     public static Handler sporocila = new Handler(Looper.getMainLooper()) {
         @Override
         public void handleMessage(Message inputMessage) {
-            //System.out.println(inputMessage.toString());
-            //if(inputMessage.what==)
 
             String s="";
             byte [] neki=(byte[])inputMessage.obj;
@@ -90,21 +88,7 @@ public class Streznik extends AppCompatActivity {
             if(inputMessage.arg2==1){////arg2 =1 -> prenesemo rezultat
                 String [] tab=s.split("\n");
                 rezultati.add(new Rezultat(tab[3],tab[1],tab[0],tab[2]));
-                /*MainActivity.oskips=Integer.parseInt(tab[0]);
-                MainActivity.olives=Integer.parseInt(tab[1]);
-                MainActivity.ostRacunov=Integer.parseInt(tab[2]);
-                MainActivity.nasprotnik=tab[3];*/
-                /*if(rezultati.size()==st_odjemalca){
-                    MainActivity.prejel=true;
-                }*/
-            }/*if(inputMessage.arg2==-1){////arg2 =-1 -> prenesemo nastavitve igre
-                String [] tab=s.split("\n");
-                MainActivity.oskips=Integer.parseInt(tab[0]);
-                MainActivity.olives=Integer.parseInt(tab[1]);
-                MainActivity.ostRacunov=Integer.parseInt(tab[2]);
-                MainActivity.nasprotnik=tab[3];
-                MainActivity.prejel=true;
-            }*/
+            }
         }
     };
 
@@ -239,15 +223,6 @@ public class Streznik extends AppCompatActivity {
 
 
 
-
-    /*public void nrdiSocket(){
-        try {
-            neki=UUID.randomUUID();
-            socket=bluetoothAdapter.listenUsingRfcommWithServiceRecord("Calculator_wars", neki);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
     public static void povezano(final BluetoothSocket socket){
         MyBluetoothService blutuf=new MyBluetoothService();
         final MyBluetoothService.ConnectedThread povezava= blutuf.new ConnectedThread(socket);
