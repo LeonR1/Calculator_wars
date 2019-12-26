@@ -14,22 +14,25 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Konec"
-            android:screenOrientation="portrait">
-            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:noHistory="true" >
         </activity>
         <activity android:name=".Odjemalec"
-            android:screenOrientation="portrait" />
-            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:noHistory="true">
+        </activity>
         <activity android:name=".Streznik"
-            android:screenOrientation="portrait" />
-            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:noHistory="true">
+        </activity>
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait" />
-            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:noHistory="true">
+        </activity>
         <activity android:name=".Home"
-            android:screenOrientation="portrait">
-            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
