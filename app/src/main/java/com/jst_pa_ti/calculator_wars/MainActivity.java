@@ -123,6 +123,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
         final Button btnSkip = findViewById(R.id.btnSkip);
+
+        if (skips <= 0) {//če je na začetku 0 skipou. da ne more skipat
+            btnSkip.setEnabled(false);
+        }
+
         btnSkip.setText("Skip: " + skips);
         btnSkip.setOnClickListener(new View.OnClickListener() {
 

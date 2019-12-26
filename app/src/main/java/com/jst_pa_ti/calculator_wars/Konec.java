@@ -13,14 +13,13 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import static com.jst_pa_ti.calculator_wars.Streznik.povezave_public;
+import static com.jst_pa_ti.calculator_wars.Streznik.rezultati;
 
 public class Konec extends AppCompatActivity {
 
-    private static TextView my_score;
-    private static TextView opponent_score;
-    private static TextView me_text;
-    private static TextView opponent_text;
+
     private static ListView seznam_rezultatov;
+    private static TextView zmago;
     //private static ArrayList<Rezultat> list=new ArrayList<Rezultat>();
     private static Context tole;
 
@@ -30,15 +29,11 @@ public class Konec extends AppCompatActivity {
         setContentView(R.layout.activity_konec);
 
         tole=this;
-
         seznam_rezultatov=findViewById(R.id.seznamcek);
-        my_score=findViewById(R.id.my_score);
-        opponent_score=findViewById(R.id.opponent_score);
-        me_text=findViewById(R.id.me);
-        opponent_text=findViewById(R.id.opponent);
+        TextView ime=findViewById(R.id.ime);
+        zmago=findViewById(R.id.zmagovalec);
+        ime.setText("Ime vaše naprave: "+Home.ime);
         String s=String.format("Zivljenja: %s \n skipi: %s \n racuni: %s",MainActivity.lives,MainActivity.skips,MainActivity.stRacunov);
-        my_score.setText(s);
-        me_text.setText(Home.ime);
         Thread rezultati=new Thread(new Runnable() {
             @Override
             public void run() {
@@ -62,11 +57,17 @@ public class Konec extends AppCompatActivity {
     }
     public static void prikazi(){
         String os=String.format("Zivljenja: %s \n skipi: %s \n racuni: %s",MainActivity.olives,MainActivity.oskips,MainActivity.ostRacunov);
-        opponent_score.setText(os);
-        opponent_text.setText(MainActivity.nasprotnik);
+
         if(Streznik.jeStreznik) {
             //Streznik.rezultati.addAll(Streznik.rezultati);
-            seznam_rezultatov.setAdapter(new ArrayAdapter<Rezultat>(tole, android.R.layout.simple_list_item_1, Streznik.rezultati));
+           // seznam_rezultatov.setAdapter(new ArrayAdapter<Rezultat>(tole, android.R.layout.simple_list_item_1, Streznik.rezultati));
+
+            ArrayList<RezultatiZmagovalec> rez=new ArrayList<>();
+            for(int i=0; i<Streznik.rezultati.size(); i++){
+                rez.add(new RezultatiZmagovalec(Streznik.rezultati.get(i)));
+            }
+            seznam_rezultatov.setAdapter(new ArrayAdapter<RezultatiZmagovalec>(tole, android.R.layout.simple_list_item_1, rez));
+            nastaviZmagovalca();
 
             //poslji score
             String s="";
@@ -84,7 +85,15 @@ public class Konec extends AppCompatActivity {
                 povezave_public[i].write(skip);
             }
         }else{
-            seznam_rezultatov.setAdapter(new ArrayAdapter<Rezultat>(tole, android.R.layout.simple_list_item_1, Streznik.rezultati));
+            //seznam_rezultatov.setAdapter(new ArrayAdapter<Rezultat>(tole, android.R.layout.simple_list_item_1, Streznik.rezultati));
+
+            ArrayList<RezultatiZmagovalec> rez=new ArrayList<>();
+            for(int i=0; i<Streznik.rezultati.size(); i++){
+                rez.add(new RezultatiZmagovalec(Streznik.rezultati.get(i)));
+            }
+            seznam_rezultatov.setAdapter(new ArrayAdapter<RezultatiZmagovalec>(tole, android.R.layout.simple_list_item_1, rez));
+            nastaviZmagovalca();
+
         }
     }
 
@@ -93,5 +102,43 @@ public class Konec extends AppCompatActivity {
         Intent zacni=new Intent(this, Home.class);
         this.startActivity(zacni);
         finish();
+    }
+    public static void nastaviZmagovalca(){
+        int maks=-9999;
+        for(int i=0; i<Streznik.rezultati.size(); i++){//najdi maks rezultat
+            if(zracuniRezultat(Streznik.rezultati.get(i))>maks){
+                maks=zracuniRezultat(Streznik.rezultati.get(i));
+            }
+        }
+        for(int i=0; i<Streznik.rezultati.size(); i++){//najdi maks rezultat
+            if(zracuniRezultat(Streznik.rezultati.get(i))==maks){
+                zmago.setText("Zmagovalec je: "+Streznik.rezultati.get(i).vrniIme());
+            }
+        }
+    }
+
+    public static int zracuniRezultat(Rezultat r){
+        return Integer.parseInt(r.vrniRacune())+(2*Integer.parseInt(r.vrniZivljenja()))+(2*Integer.parseInt(r.vrniPreskoke()));
+    }
+}
+
+
+class RezultatiZmagovalec {
+
+    private Rezultat rez;
+
+
+    public RezultatiZmagovalec(Rezultat rez) {
+        this.rez = rez;
+    }
+
+    public int zracuniRezultat(Rezultat r) {
+        return Integer.parseInt(r.vrniRacune()) + (2 * Integer.parseInt(r.vrniZivljenja())) + (2 * Integer.parseInt(r.vrniPreskoke()));
+    }
+
+    @Override
+    public String toString() {
+
+        return rez.vrniIme() + "\n" + "Zivljenja: " + rez.vrniZivljenja() + "\n" + "Preskoki: " + rez.vrniPreskoke() + "\n" + "St. računov: " + rez.vrniRacune() + "\n" + "Rezultat: " + zracuniRezultat(rez);
     }
 }

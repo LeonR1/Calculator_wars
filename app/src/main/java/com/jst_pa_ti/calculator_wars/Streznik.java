@@ -145,6 +145,7 @@ public class Streznik extends AppCompatActivity {
                 skipd.setText(MainActivity.skips+"");
                 lived.setText(MainActivity.lives+"");
                 lengthd.setText(MainActivity.trajanje+"");
+
                 final AcceptThread test=new AcceptThread();
                 Thread server=new Thread(new Runnable() {
                     @Override
@@ -370,6 +371,7 @@ class Naprava{
     public String vrniMac(){
         return mac;
     }
+    @Override
     public String toString(){
         return ime+"\n"+mac;
     }
