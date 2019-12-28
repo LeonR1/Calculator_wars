@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/calcMenu"
+    android:background="@drawable/calcmenu"
     tools:context=".Streznik">
 
     <androidx.constraintlayout.widget.Guideline
@@ -71,6 +71,7 @@
         android:ems="10"
         android:hint="Življenja"
         android:inputType="number"
+        android:textColor="#E6242424"
         app:layout_constraintBottom_toTopOf="@+id/guideline27"
         app:layout_constraintEnd_toStartOf="@+id/guideline22"
         app:layout_constraintHorizontal_bias="0.0"
@@ -84,6 +85,7 @@
         android:ems="10"
         android:hint="Čas igre"
         android:inputType="number"
+        android:textColor="#E6242424"
         app:layout_constraintBottom_toTopOf="@+id/guideline28"
         app:layout_constraintEnd_toStartOf="@+id/guideline22"
         app:layout_constraintHorizontal_bias="0.0"
@@ -97,6 +99,7 @@
         android:ems="10"
         android:hint="Preskoki"
         android:inputType="number"
+        android:textColor="#E6242424"
         app:layout_constraintBottom_toTopOf="@+id/guideline29"
         app:layout_constraintEnd_toStartOf="@+id/guideline22"
         app:layout_constraintHorizontal_bias="0.0"
@@ -108,9 +111,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Privzete vrednosti:"
+        android:textColor="#E6242424"
         app:layout_constraintBottom_toTopOf="@+id/guideline23"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline22" />
+        app:layout_constraintEnd_toStartOf="@+id/guideline46"
+        app:layout_constraintStart_toStartOf="@+id/guideline40" />
 
     <TextView
         android:id="@+id/livesd"
@@ -119,7 +123,7 @@
         android:gravity="center"
         android:text="TextView"
         android:textAlignment="center"
-        android:textColor="#4CAF50"
+        android:textColor="#E6242424"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/timed"
         app:layout_constraintEnd_toStartOf="@+id/guideline46"
@@ -133,7 +137,7 @@
         android:gravity="center"
         android:text="TextView"
         android:textAlignment="center"
-        android:textColor="#4CAF50"
+        android:textColor="#E6242424"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline28"
         app:layout_constraintEnd_toStartOf="@+id/guideline46"
@@ -147,7 +151,7 @@
         android:gravity="center"
         android:text="TextView"
         android:textAlignment="center"
-        android:textColor="#4CAF50"
+        android:textColor="#E6242424"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline29"
         app:layout_constraintEnd_toStartOf="@+id/guideline46"
@@ -159,6 +163,8 @@
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:foregroundTint="#DC141212"
+        android:progressTint="#002E2727"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/povezani"
         app:layout_constraintEnd_toStartOf="@+id/guideline41"
@@ -171,9 +177,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ime"
+        android:textColor="#E6242424"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/guideline23"
-        app:layout_constraintEnd_toStartOf="@+id/guideline22"
+        app:layout_constraintEnd_toStartOf="@+id/guideline46"
         app:layout_constraintStart_toStartOf="@+id/guideline18"
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="invisible" />
@@ -184,10 +191,11 @@
         android:layout_height="0dp"
         android:gravity="center"
         android:text="Čakam na povezavo"
+        android:textColor="#E6242424"
         android:textSize="18sp"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/guideline29"
-        app:layout_constraintEnd_toStartOf="@+id/guideline22"
+        app:layout_constraintEnd_toStartOf="@+id/guideline46"
         app:layout_constraintStart_toStartOf="@+id/guideline18"
         app:layout_constraintTop_toTopOf="@+id/guideline23"
         tools:visibility="invisible" />
@@ -196,10 +204,12 @@
         android:id="@+id/povezani"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:backgroundTint="#001A1717"
+        android:backgroundTintMode="add"
+        android:foregroundTint="#001B1818"
         app:layout_constraintBottom_toTopOf="@+id/guideline45"
-        app:layout_constraintEnd_toStartOf="@+id/guideline32"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline31"
+        app:layout_constraintEnd_toStartOf="@+id/guideline46"
+        app:layout_constraintStart_toStartOf="@+id/guideline18"
         app:layout_constraintTop_toTopOf="@+id/guideline44" />
 
     <androidx.constraintlayout.widget.Guideline

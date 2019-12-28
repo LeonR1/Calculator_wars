@@ -163,6 +163,11 @@ public class Streznik extends AppCompatActivity {
                 jst.setVisibility(View.VISIBLE);
                 jst.setText("Ime naprave: "+Home.ime);
 
+                def.setVisibility(View.INVISIBLE);
+                skipd.setVisibility(View.INVISIBLE);
+                lived.setVisibility(View.INVISIBLE);
+                lengthd.setVisibility(View.INVISIBLE);
+
                 Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
                 discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
                 startActivity(discoverableIntent);
