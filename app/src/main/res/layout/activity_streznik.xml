@@ -110,11 +110,12 @@
         android:id="@+id/privz"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Privzete vrednosti:"
+        android:text="Privzete\nvrednosti:"
+        android:textAlignment="center"
         android:textColor="#E6242424"
         app:layout_constraintBottom_toTopOf="@+id/guideline23"
         app:layout_constraintEnd_toStartOf="@+id/guideline46"
-        app:layout_constraintStart_toStartOf="@+id/guideline40" />
+        app:layout_constraintStart_toStartOf="@+id/guideline22" />
 
     <TextView
         android:id="@+id/livesd"
