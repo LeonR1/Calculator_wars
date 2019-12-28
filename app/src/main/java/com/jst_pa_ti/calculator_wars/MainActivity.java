@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View v) {
 
                     int x = v.getId();
+                    x--;
                     x -= 2131165218;
 
                     if (x >= 0 && x <= 9) {

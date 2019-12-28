@@ -101,6 +101,9 @@ public class Streznik extends AppCompatActivity {
 
         jeStreznik=true;
         MainActivity.stanje=0;
+        MainActivity.lives=3;
+        MainActivity.skips=3;
+        MainActivity.trajanje=60;
         naprave.clear();
         st_odjemalca=0;
         rezultati.clear();
