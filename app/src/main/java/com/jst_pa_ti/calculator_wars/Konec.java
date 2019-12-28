@@ -6,7 +6,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -32,7 +34,7 @@ public class Konec extends AppCompatActivity {
         seznam_rezultatov=findViewById(R.id.seznamcek);
         TextView ime=findViewById(R.id.ime);
         zmago=findViewById(R.id.zmagovalec);
-        ime.setText("Ime vaše naprave: "+Home.ime);
+        ime.setText("Ime vaše naprave:\n"+Home.ime);
         String s=String.format("Zivljenja: %s \n skipi: %s \n racuni: %s",MainActivity.lives,MainActivity.skips,MainActivity.stRacunov);
         Thread rezultati=new Thread(new Runnable() {
             @Override
@@ -54,6 +56,17 @@ public class Konec extends AppCompatActivity {
         });
         rezultati.start();
 
+        final Context to=this;
+
+        Button nazaj=findViewById(R.id.back);
+        nazaj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent zacni=new Intent(to, Home.class);
+                to.startActivity(zacni);
+                finish();
+            }
+        });
     }
     public static void prikazi(){
         String os=String.format("Zivljenja: %s \n skipi: %s \n racuni: %s",MainActivity.olives,MainActivity.oskips,MainActivity.ostRacunov);
@@ -112,7 +125,7 @@ public class Konec extends AppCompatActivity {
         }
         for(int i=0; i<Streznik.rezultati.size(); i++){//najdi maks rezultat
             if(zracuniRezultat(Streznik.rezultati.get(i))==maks){
-                zmago.setText("Zmagovalec je: "+Streznik.rezultati.get(i).vrniIme());
+                zmago.setText("Zmagovalec je:\n"+Streznik.rezultati.get(i).vrniIme());
             }
         }
     }

@@ -357,7 +357,7 @@ class Rezultat{
     }
     @Override
     public String toString(){
-        return ime+"\n"+"Zivljenja: "+zivljenja+"\n"+"Preskoki: "+preskoki+"\n"+"St. računov: "+racuni;
+        return ime+"\n"+"Življenja: "+zivljenja+"\n"+"Preskoki: "+preskoki+"\n"+"Št. računov: "+racuni;
     }
     public String toStringPro(){
         return ime+"%#%"+zivljenja+"%#%"+preskoki+"%#%"+racuni;
