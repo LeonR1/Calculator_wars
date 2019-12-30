@@ -108,6 +108,18 @@ public class Streznik extends AppCompatActivity {
         st_odjemalca=0;
         rezultati.clear();
 
+        final Context to=this;
+        Button nazaj=findViewById(R.id.back);
+        nazaj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent zacni=new Intent(to, Home.class);
+                to.startActivity(zacni);
+                finish();
+            }
+        });
+
+
         start=findViewById(R.id.start);
 
         final TextView skipd=findViewById(R.id.skipsd);
@@ -325,7 +337,7 @@ public class Streznik extends AppCompatActivity {
                     }
                 }
 
-                // Closes the connect socket and causes the thread to finish.
+                // Closes the connect socket and causes the thread to finishGame.
                 public void cancel() {
                     try {
                         mmServerSocket.close();

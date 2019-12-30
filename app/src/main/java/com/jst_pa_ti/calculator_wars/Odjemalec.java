@@ -35,7 +35,7 @@ public class Odjemalec extends AppCompatActivity {
 
     private final static int REQUEST_ENABLE_BT = 1;
     private static ArrayList<Odjemalec.Naprava> naprave = new ArrayList<Odjemalec.Naprava>();
-    private ListView seznam_naprav;
+    private static ListView seznam_naprav;
     static TextView ime;
     private static Context mContext;
     public static MyBluetoothService.ConnectedThread povezava_public_o;
@@ -53,8 +53,7 @@ public class Odjemalec extends AppCompatActivity {
                 //System.out.println(s);
             if(true){
                 if (inputMessage.arg2 == 0) {
-                /*ime.setText(s);
-                seed=Integer.parseInt(s);*/
+
                     String[] tab = s.split("\n");
                     seed = Integer.parseInt(tab[0]);
                     System.out.println(tab[1] + " " + tab[2] + " " + tab[3]);
@@ -67,6 +66,7 @@ public class Odjemalec extends AppCompatActivity {
                         @Override
                         public void run() {
                             ime.setVisibility(View.VISIBLE);
+                            seznam_naprav.setOnItemClickListener(null);
                         }
                     });
 
@@ -122,6 +122,17 @@ public static void zacni(){
         naprave.clear();
         rezultati.clear();
         st_odjemalca=0;
+
+        final Context to=this;
+        Button nazaj=findViewById(R.id.back);
+        nazaj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent zacni=new Intent(to, Home.class);
+                to.startActivity(zacni);
+                finish();
+            }
+        });
 
         Handler sporocila = new Handler(Looper.getMainLooper()) {
             @Override
@@ -227,7 +238,7 @@ public static void zacni(){
             povezano(mmSocket);
         }
 
-        // Closes the client socket and causes the thread to finish.
+        // Closes the client socket and causes the thread to finishGame.
         public void cancel() {
             try {
                 mmSocket.close();
