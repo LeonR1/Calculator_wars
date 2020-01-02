@@ -101,9 +101,24 @@ public class Streznik extends AppCompatActivity {
 
         jeStreznik=true;
         MainActivity.stanje=0;
+        MainActivity.lives=3;
+        MainActivity.skips=3;
+        MainActivity.trajanje=60;
         naprave.clear();
         st_odjemalca=0;
         rezultati.clear();
+
+        final Context to=this;
+        Button nazaj=findViewById(R.id.back);
+        nazaj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent zacni=new Intent(to, Home.class);
+                to.startActivity(zacni);
+                finish();
+            }
+        });
+
 
         start=findViewById(R.id.start);
 
@@ -322,7 +337,7 @@ public class Streznik extends AppCompatActivity {
                     }
                 }
 
-                // Closes the connect socket and causes the thread to finish.
+                // Closes the connect socket and causes the thread to finishGame.
                 public void cancel() {
                     try {
                         mmServerSocket.close();
@@ -357,7 +372,7 @@ class Rezultat{
     }
     @Override
     public String toString(){
-        return ime+"\n"+"Zivljenja: "+zivljenja+"\n"+"Preskoki: "+preskoki+"\n"+"St. računov: "+racuni;
+        return ime+"\n"+"Življenja: "+zivljenja+"\n"+"Preskoki: "+preskoki+"\n"+"Št. računov: "+racuni;
     }
     public String toStringPro(){
         return ime+"%#%"+zivljenja+"%#%"+preskoki+"%#%"+racuni;

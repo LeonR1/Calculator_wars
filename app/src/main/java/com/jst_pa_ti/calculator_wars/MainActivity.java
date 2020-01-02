@@ -9,8 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.Random;
-
 import static com.jst_pa_ti.calculator_wars.Streznik.rezultati;
 
 public class MainActivity extends AppCompatActivity {
@@ -61,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View v) {
 
                     int x = v.getId();
+                    x--;
                     x -= 2131165218;
 
                     if (x >= 0 && x <= 9) {
@@ -179,7 +178,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void finish() {
+
+    public void finishGame() {
         startActivity(new Intent(MainActivity.this, Konec.class));
         if(Streznik.jeStreznik){
             /*byte[] skip=(skips+"\n"+lives+"\n"+stRacunov+"\n"+Home.ime).getBytes();
@@ -191,6 +191,7 @@ public class MainActivity extends AppCompatActivity {
             Odjemalec.povezava_public_o.write(skip);
             stanje=3;
         }
+        finish();
     }
 
     private void initButtons() {
@@ -210,6 +211,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        //ne nrdi nč ko stisnemo nazaj
+    }
+
     class Timer implements Runnable {
 
         int sekund = 0;
@@ -227,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (lives <= 0) {
 
-                    finish();
+                    finishGame();
                     return;
 
                 }
@@ -252,7 +258,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
-            finish();
+            finishGame();
 
         }
 
