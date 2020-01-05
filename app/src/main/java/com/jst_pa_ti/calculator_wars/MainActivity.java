@@ -41,10 +41,10 @@ public class MainActivity extends AppCompatActivity {
 
         tvRacun.setText(racunGenerator.getGenRacun());
         stRac = findViewById(R.id.stRacunov);
-        stRac.setText("Correct solutions: " + stRacunov);
+        stRac.setText("Pravilne rešitve: " + stRacunov);
         tvTime = findViewById(R.id.timer);
         tvLives = findViewById(R.id.lives);
-        tvLives.setText("Lives: "+lives);
+        tvLives.setText("Življenja: "+lives);
 
         //lives = 3;
         stRacunov = 0;
@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
                             if(lives>0)
                                 lives--;
-                            tvLives.setText("Lives: " + lives);
+                            tvLives.setText("Življenja: " + lives);
 
                         }
 
