@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
             btnSkip.setEnabled(false);
         }
 
-        btnSkip.setText("Skip: " + skips);
+        btnSkip.setText("Preskoči: " + skips);
         btnSkip.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
                 tvRacun.setText(racunGenerator.getGenRacun());
                 if(skips>0)
                     skips--;
-                btnSkip.setText("Skip: " + skips);
+                btnSkip.setText("Preskoči: " + skips);
 
                 if (skips <= 0) {
 
