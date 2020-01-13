@@ -43,7 +43,7 @@
         android:autoSizeTextType="uniform"
         android:background="#0000"
         android:maxLines="1"
-        android:padding="10dp"
+        android:padding="6dp"
         android:text="ODJEMALEC"
         android:textColor="@color/background"
         app:layout_constraintBottom_toTopOf="@+id/guideline38"
