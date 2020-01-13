@@ -122,6 +122,7 @@ public static void zacni(){
         naprave.clear();
         rezultati.clear();
         st_odjemalca=0;
+        MainActivity.stRacunov=0;
 
         final Context to=this;
         Button nazaj=findViewById(R.id.back);
